@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TempWeather</title>
+   
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="caixas.css">
+
+</head>
+
+<body>
+   <h1><span id="titulosite">TempWeather</span></h1>
+   <div id="inputbox">
+      <input type="text" id="cidade" placeholder="Digite Aqui Uma Cidade">
+
+      <button id="botaobuscar" onclick="buscarPrevisao()">🔎</button>
+
+      <button id="otherinfo" style="display: none;">Mais Informações</button>
+   </div>
+
+   <div id="listapais">
+      <input list="listapaises" id="pais" name="pais" placeholder="País">
+      <datalist id="listapaises">
+         <option value="País">
+         <option value="Afeganistão">
+         <option value="Albânia">
+         <option value="Argélia">
+         <option value="Samoa Americana">
+         <option value="Andorra">
+         <option value="Angola">
+         <option value="Anguila">
+         <option value="Antártica">
+         <option value="Antígua e Barbuda">
+         <option value="Argentina">
+         <option value="Armênia">
+         <option value="Aruba">
+         <option value="Austrália">
+         <option value="Áustria">
+         <option value="Azerbaijão">
+         <option value="Bahamas">
+         <option value="Bahrein">
+         <option value="Bangladesh">
+         <option value="Barbados">
+         <option value="Bielorrússia">
+         <option value="Bélgica">
+         <option value="Belize">
+         <option value="Benin">
+         <option value="Bermudas">
+         <option value="Butão">
+         <option value="Bolívia">
+         <option value="Bonaire, Santo Eustáquio e Saba">
+         <option value="Bósnia e Herzegovina">
+         <option value="Botsuana">
+         <option value="Ilha Bouvet">
+         <option value="Brasil">
+         <option value="Território Britânico do Oceano Índico">
+         <option value="Brunei">
+         <option value="Bulgária">
+         <option value="Burquina Faso">
+         <option value="Burundi">
+         <option value="Camboja">
+         <option value="Camarões">
+         <option value="Canadá">
+         <option value="Cabo Verde">
+         <option value="Ilhas Cayman">
+         <option value="República Centro-Africana">
+         <option value="Chade">
+         <option value="Chile">
+         <option value="China">
+         <option value="Ilha Christmas">
+         <option value="Ilhas Cocos (Keeling)">
+         <option value="Colômbia">
+         <option value="Comores">
+         <option value="Coreia do Sul">
+         <option value="Coreia do Norte">
+         <option value="Congo">
+         <option value="Congo (República Democrática do)">
+         <option value="Ilhas Cook">
+         <option value="Costa Rica">
+         <option value="Costa do Marfim">
+         <option value="Croácia">
+         <option value="Cuba">
+         <option value="Curaçao">
+         <option value="Chipre">
+         <option value="República Tcheca">
+         <option value="Dinamarca">
+         <option value="Djibuti">
+         <option value="Dominica">
+         <option value="República Dominicana">
+         <option value="Equador">
+         <option value="Egito">
+         <option value="El Salvador">
+         <option value="Guiné Equatorial">
+         <option value="Eritreia">
+         <option value="Estônia">
+         <option value="Etiópia">
+         <option value="Ilhas Malvinas">
+         <option value="Ilhas Faroe">
+         <option value="Fiji">
+         <option value="Finlândia">
+         <option value="França">
+         <option value="Guiana Francesa">
+         <option value="Polinésia Francesa">
+         <option value="Portugal">
+         <option value="Territórios Franceses do Sul">
+         <option value="Gabão">
+         <option value="Gâmbia">
+         <option value="Geórgia">
+         <option value="Alemanha">
+         <option value="Gana">
+         <option value="Gibraltar">
+         <option value="Grécia">
+         <option value="Groenlândia">
+         <option value="Granada">
+         <option value="Guadalupe">
+         <option value="Guam">
+         <option value="Guatemala">
+         <option value="Guernsey">
+         <option value="Guiné">
+         <option value="Guiné-Bissau">
+         <option value="Guiana">
+         <option value="Haiti">
+         <option value="Havaí">
+         <option value="McDonald">
+         <option value="Vaticano">
+         <option value="Honduras">
+         <option value="Hong Kong">
+         <option value="Hungria">
+         <option value="Islândia">
+         <option value="Índia">
+         <option value="Indonésia">
+         <option value="Irã">
+         <option value="Iraque">
+         <option value="Irlanda">
+         <option value="Ilha de Man">
+         <option value="Israel">
+         <option value="Itália">
+         <option value="Jamaica">
+         <option value="Japão">
+         <option value="Jersey">
+         <option value="Jordânia">
+         <option value="Cazaquistão">
+         <option value="Quênia">
+         <option value="Kiribati">
+         <option value="Kuwait">
+         <option value="Quirguistão">
+         <option value="Laos">
+         <option value="Letônia">
+         <option value="Líbano">
+         <option value="Lesoto">
+         <option value="Libéria">
+         <option value="Líbia">
+         <option value="Liechtenstein">
+         <option value="Lituânia">
+         <option value="Luxemburgo">
+         <option value="Macau">
+         <option value="Macedônia do Norte">
+         <option value="Madagascar">
+         <option value="Malawi">
+         <option value="Malásia">
+         <option value="Maldivas">
+         <option value="Mali">
+         <option value="Malta">
+         <option value="Ilhas Marshall">
+         <option value="Martinica">
+         <option value="Mauritânia">
+         <option value="Maurício">
+         <option value="México">
+         <option value="Micronésia">
+         <option value="Moldávia">
+         <option value="Mônaco">
+         <option value="Mongólia">
+         <option value="Montenegro">
+         <option value="Montserrat">
+         <option value="Marrocos">
+         <option value="Moçambique">
+         <option value="Mianmar">
+         <option value="Namíbia">
+         <option value="Nauru">
+         <option value="Nepal">
+         <option value="Países Baixos">
+         <option value="Nova Caledônia">
+         <option value="Nova Zelândia">
+         <option value="Nicarágua">
+         <option value="Níger">
+         <option value="Nigéria">
+         <option value="Niue">
+         <option value="Ilha Norfolk">
+         <option value="Ilhas Marianas do Norte">
+         <option value="Noruega">
+         <option value="Omã">
+         <option value="Paquistão">
+         <option value="Palau">
+         <option value="Palestina">
+         <option value="Panamá">
+         <option value="Papua-Nova Guiné">
+         <option value="Paraguai">
+         <option value="Peru">
+         <option value="Filipinas">
+         <option value="Ilhas Pitcairn">
+         <option value="Polônia">
+         <option value="Porto Rico">
+         <option value="Catar">
+         <option value="Romênia">
+         <option value="Rússia">
+         <option value="Ruanda">
+         <option value="Reunião">
+         <option value="São Bartolomeu">
+         <option value="Santa Helena">
+         <option value="São Cristóvão e Névis">
+         <option value="Santa Lúcia">
+         <option value="São Martinho">
+         <option value="São Pedro e Miquelão">
+         <option value="São Vicente e Granadinas">
+         <option value="Samoa">
+         <option value="San Marino">
+         <option value="São Tomé e Príncipe">
+         <option value="Arábia Saudita">
+         <option value="Senegal">
+         <option value="Sérvia">
+         <option value="Seychelles">
+         <option value="Serra Leoa">
+         <option value="Singapura">
+         <option value="Eslováquia">
+         <option value="Eslovênia">
+         <option value="Ilhas Salomão">
+         <option value="Somália">
+         <option value="África do Sul">
+         <option value="Geórgia do Sul e Ilhas Sandwich do Sul">
+         <option value="Sudão do Sul">
+         <option value="Espanha">
+         <option value="Sri Lanka">
+         <option value="Sudão">
+         <option value="Suriname">
+         <option value="Eswatini">
+         <option value="Suécia">
+         <option value="Suíça">
+         <option value="Síria">
+         <option value="Taiwan">
+         <option value="Tajiquistão">
+         <option value="Tanzânia">
+         <option value="Tailândia">
+         <option value="Timor-Leste">
+         <option value="Togo">
+         <option value="Toquelau">
+         <option value="Tonga">
+         <option value="Trinidad e Tobago">
+         <option value="Tunísia">
+         <option value="Turquia">
+         <option value="Turcomenistão">
+         <option value="Tuvalu">
+         <option value="Uganda">
+         <option value="Ucrânia">
+         <option value="Emirados Árabes Unidos">
+         <option value="Reino Unido">
+         <option value="Estados Unidos">
+         <option value="Uruguai">
+         <option value="Uzbequistão">
+         <option value="Vanuatu">
+         <option value="Venezuela">
+         <option value="Vietnã">
+         <option value="Ilhas Virgens Britânicas">
+         <option value="Ilhas Virgens Americanas">
+         <option value="Saara Ocidental">
+         <option value="Iémen">
+         <option value="Zâmbia">
+         <option value="Zimbábue">
+      </datalist>
+   </div>
+   <div id="botoespreview" style="display: block;">
+      <button id="preview1">São Paulo</button>
+      <button id="preview5">Fortaleza</button>
+      <button id="preview2">Rio De Janeiro</button>
+      <button id="preview3">Brasília</button>
+      <button id="preview4">Salvador BA</button>
+
+      <div id="previsaoDias3"></div>
+      <div id="previsaoDias2"></div>
+      <div id="previsaoDias1"></div>
+      <div id="previsaoDias4"></div>
+      <div id="previsaoDias5"></div>
+   </div>
+<div class="containerbuscas">
+   <button id="deletatudo" onclick="apagarHistoricoAll()"></button>
+  <div id="buscas">
+  </div>
+  </div>
+  
+   <div id="background">
+      <div id="resultado"></div>
+   </div>
+   <div id="resultado1" style="display: none;"></div>
+   <div id="resultado2" style="display: none;"></div>
+   <div id="resultado3"></div>
+   <div id="previsaoDias"></div>
+
+
+
+<div id="mapaContainer" style="display: none;">
+   <div id="mapa" style="display: none;"></div>
+   </div>
+
+
+   <div id="alertasClimaticos" style="display: none;"></div>
+
+
+
+   <button id="fechar" style="display: none;">Fechar</button>
+
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+   <script src="apiclima.js"></script>
+   <script src="script.js"></script>
+   <script src="paises.js"></script>
+   <script src="funcoes.js"></script>
+   <script src="previews.js"></script>
+</body>
+
+</html>

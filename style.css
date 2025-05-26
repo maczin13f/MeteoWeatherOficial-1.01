@@ -1,0 +1,257 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: black;
+    background: white;
+    font-weight: bold;
+}
+
+h1 {
+    position: relative;
+    background-color: white;
+    text-align: center;
+    font-size: 40px;
+    height: 80px;
+    top: 10px;
+    border: solid black 3px;
+    border-radius: 30px;
+}
+
+span#titulosite {
+    position: relative;
+    top: 0.2em;
+    background: linear-gradient(to right, royalblue, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+
+}
+
+#otherinfo {
+    position: relative;
+    top: -3.7em;
+    left: 10em;
+    height: 1.7em;
+    font-size: 20px;
+    border: solid black 3px;
+    border-radius: 30px;
+    background: white;
+    font-weight: bold;
+    width: 350px;
+    cursor: pointer;
+}
+
+#otherinfo:hover {
+    background: linear-gradient(to right, rgb(255, 225, 0), rgb(0, 102, 255), white);
+    color: white;
+}
+
+#descricao {
+    position: relative;
+    left: 29em;
+    width: 500px;
+    top: 250px;
+}
+
+#titulo {
+    position: relative;
+    left: 17em;
+    top: 3em;
+    width: 50%;
+    font-size: 25px;
+}
+
+#fotododia {
+    display: none;
+    border: solid black;
+    border-radius: 30px;
+    height: 430px;
+    top: 2em;
+}
+
+#previsaoDias1 .dias,
+#previsaoDias2 .dias,
+#previsaoDias3 .dias,
+#previsaoDias4 .dias,
+#previsaoDias5 .dias {
+    margin-left: 12.5em;
+    width: 790px;
+    display: flex;
+    gap: 20px;
+}
+
+#previsaoDias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -15em;
+    font-weight: bold;
+}
+
+#previsaoDias2,
+#previsaoDias3,
+#previsaoDias4,
+#previsaoDias5,
+#previsaoDias1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -0em;
+    font-weight: bold;
+    margin-left: 3em;
+}
+
+
+h5 {
+    width: 50em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    border: solid black 2px;
+    border-radius: 30px;
+    padding: 5px;
+}
+
+#fechar {
+    position: relative;
+    left: 47em;
+    top: -35.5em;
+    border: solid red 3px;
+    border-radius: 30px;
+    color: red;
+    font-weight: bold;
+    background-color: white;
+    width: 190px;
+    font-size: 22px;
+    height: 1.7em;
+}
+
+#fechar:hover {
+    background-color: red;
+    color: white;
+    border-color: black;
+    cursor: pointer;
+}
+
+#mapa {
+    margin-top: -40em;
+    height: 33em;
+    width: 58em;
+    border: 3px solid black;
+    border-radius: 30px;
+    left: 0.5em;
+    
+}  
+
+.card-dias {
+    border: solid black;
+    border-radius: 30px;
+    width: 145px;
+    height: 190px;
+    gap: 20px;
+    background: url(imagens/ceunormal.jpg);
+    background-size: cover;
+    background-position: center 10%;
+    font-size: 15px;
+}
+
+.icone {
+    width: 60px;
+    height: 60px;
+}
+
+#inputbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#pais {
+    position: relative;
+    width: 60px;
+    left: 50em;
+    top: -8.86em;
+    border: solid black 2px;
+    border-radius: 20px;
+    height: 1.7em;
+}
+
+#pais::placeholder {
+    text-align: center;
+    font-size: 14px;
+}
+
+#cidade {
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    top: -2.5em;
+    border: solid black 2px;
+    border-radius: 20px;
+    width: 24em;
+    height: 2.5em;
+}
+#cidade::placeholder {
+    position: relative;
+    left: 0.8em;
+    font-size: 15px;
+}
+
+#botaobuscar {
+    position: relative;
+    top: -3.97em;
+    left: 11.6%;
+    height: 48px;
+    width: 55px;
+    border: solid black 2px;
+    border-radius: 40px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#botaobuscar:hover {
+    background-color: rgb(67, 181, 247);
+    border: solid black 2px;
+}
+
+#botoespreview {
+    text-align: center;
+    align-items: center;
+    margin-top: -7em;
+}
+
+#preview1,
+#preview2,
+#preview3,
+#preview4,
+#preview5 {
+    border: solid black 2px;
+    border-radius: 30px;
+    width: 15em;
+    height: 2em;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background: white;
+    color: black;
+}
+
+#preview1:hover ,
+#preview2:hover ,
+#preview3:hover ,
+#preview4:hover ,
+#preview5:hover {
+    transition-duration: 0.2s;
+    height: 2.8em;
+    font-size: 16px;
+}
+
+.buscas {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
