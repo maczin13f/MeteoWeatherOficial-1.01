@@ -82,10 +82,12 @@ app.get('/inmet-alertas', async (req, res) => {
   try {
     const response = await fetch('https://alertas2.inmet.gov.br/CAP/alertas.xml');
     const xml = await response.text();
+
     res.set('Content-Type', 'application/xml');
     res.send(xml);
   } catch (error) {
-    res.status(500).send("Erro ao buscar alertas do INMET");
+    console.error('Erro ao buscar alertas do INMET:', error);
+    res.status(500).send('Erro ao buscar alertas');
   }
 });
 

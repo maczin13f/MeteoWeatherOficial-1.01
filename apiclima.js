@@ -361,32 +361,43 @@ async function buscarPrevisao() {
 
     const proxyUrl = 'http://localhost:3000/inmet-alertas';
 
-try {
-  const response = await fetch(proxyUrl);
-  const xmlText = await response.text();
-
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-
-  const alerts = xmlDoc.getElementsByTagName("alert");
-  for (let i = 0; i < alerts.length; i++) {
-    const alert = alerts[i];
-    const title = alert.getElementsByTagName("event")[0]?.textContent;
-    const effective = alert.getElementsByTagName("effective")[0]?.textContent;
-    const expires = alert.getElementsByTagName("expires")[0]?.textContent;
-    const description = alert.getElementsByTagName("description")[0]?.textContent;
-
-    console.log("⚠️ Alerta INMET:");
-    console.log("Título:", title);
-    console.log("Início:", effective);
-    console.log("Fim:", expires);
-    console.log("Descrição:", description);
-    console.log("-----------");
-  }
-} catch (err) {
-  console.error("Erro ao buscar ou processar alertas do INMET:", err);
-}
-
+    try {
+      const response = await fetch(proxyUrl);
+      const xmlText = await response.text();
+    
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+    
+      const alerts = xmlDoc.getElementsByTagName("alert");
+      let alertasHtml = "";
+    
+      for (let i = 0; i < alerts.length; i++) {
+        const alert = alerts[i];
+        const title = alert.getElementsByTagName("event")[0]?.textContent || "Sem título";
+        const effective = alert.getElementsByTagName("effective")[0]?.textContent || "Data não informada";
+        const expires = alert.getElementsByTagName("expires")[0]?.textContent || "Data não informada";
+        const description = alert.getElementsByTagName("description")[0]?.textContent || "Sem descrição";
+    
+        alertasHtml += `
+          <div class="alerta alerta-inmet">
+            <h4>⚠️ ${title}</h4>
+            <p><strong>Início:</strong> ${new Date(effective).toLocaleString("pt-BR")}</p>
+            <p><strong>Fim:</strong> ${new Date(expires).toLocaleString("pt-BR")}</p>
+            <p>${description}</p>
+          </div>
+        `;
+      }
+    
+      if (alertasHtml) {
+        const alertasContainer = document.getElementById("alertasClimaticos");
+        alertasContainer.innerHTML = alertasHtml;
+        alertasContainer.style.display = "block";
+      }
+    
+    } catch (err) {
+      console.error("Erro ao buscar ou processar alertas do INMET:", err);
+    }
+    
 
 }
 
