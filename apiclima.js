@@ -152,7 +152,7 @@ async function buscarPrevisao() {
         `;
         document.getElementById("resultado3").style.display = "block";
 
-        document.getElementById("fechar").style.display = "inline";
+        document.getElementById("fechar").style.display = "none";
 
         document.getElementById('otherinfo').style.display = 'block';
 
@@ -171,7 +171,7 @@ async function buscarPrevisao() {
             resu1.style.display = 'none';
             resu2.style.display = 'none';
             divMapa.style.display = 'none';
-            fechar.style.top = '-44.5em';
+            fechar.style.top = '-35.5em';
         }
 
 
@@ -354,60 +354,39 @@ async function buscarPrevisao() {
                 hora: time,
               }),
             });
-            
-            const weatherbitApiKey = "66067f24006e4768a2c7e380d45132d6"; // sua chave Weatherbit
-
-            // Buscar alertas climáticos
-            try {
-                const alertaRes = await fetch(`https://api.weatherbit.io/v2.0/alerts?lat=${lat}&lon=${lon}&key=${weatherbitApiKey}`);
-                const alertaData = await alertaRes.json();
-                console.log("Resposta da Weatherbit:", alertaData);
-    
-                const alertas = alertaData.data || [];
-    
-                if (alertas.length > 0) {
-                    let alertasHtml = "<h3>🌩️ Alertas Climáticos:</h3>";
-    
-                    alertas.forEach(alerta => {
-                        let classeSeveridade = "";
-    
-                        switch ((alerta.severity || "").toLowerCase()) {
-                            case "moderate":
-                                classeSeveridade = "alerta-moderado";
-                                break;
-                            case "severe":
-                                classeSeveridade = "alerta-severo";
-                                break;
-                            case "extreme":
-                                classeSeveridade = "alerta-extremo";
-                                break;
-                            default:
-                                classeSeveridade = "alerta-normal";
-                        }
-    
-                        alertasHtml += `
-                            <div class="alerta ${classeSeveridade}">
-                                <h4>⚠️ ${alerta.title}</h4>
-                                <p><strong>De:</strong> ${new Date(alerta.effective_local).toLocaleString()}</p>
-                                <p><strong>Até:</strong> ${new Date(alerta.expires_local).toLocaleString()}</p>
-                                <p>${alerta.description}</p>
-                            </div>
-                        `;
-                    });
-    
-                    document.getElementById("alertasClimaticos").innerHTML = alertasHtml;
-                    document.getElementById("alertasClimaticos").style.display = "block";
-                } else {
-                    document.getElementById("alertasClimaticos").innerHTML = "<p>✅ Nenhum alerta climático no momento.</p>";
-                    document.getElementById("alertasClimaticos").style.display = "block";
-                }
-
-        } catch (error) {
-            console.error("Erro ao buscar alertas climáticos:", error);
-        }
 
     } catch (error) {
         console.error("Erro ao buscar previsão:", error);
     }
+
+    const proxyUrl = 'http://localhost:3000/inmet-alertas';
+
+try {
+  const response = await fetch(proxyUrl);
+  const xmlText = await response.text();
+
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+
+  const alerts = xmlDoc.getElementsByTagName("alert");
+  for (let i = 0; i < alerts.length; i++) {
+    const alert = alerts[i];
+    const title = alert.getElementsByTagName("event")[0]?.textContent;
+    const effective = alert.getElementsByTagName("effective")[0]?.textContent;
+    const expires = alert.getElementsByTagName("expires")[0]?.textContent;
+    const description = alert.getElementsByTagName("description")[0]?.textContent;
+
+    console.log("⚠️ Alerta INMET:");
+    console.log("Título:", title);
+    console.log("Início:", effective);
+    console.log("Fim:", expires);
+    console.log("Descrição:", description);
+    console.log("-----------");
+  }
+} catch (err) {
+  console.error("Erro ao buscar ou processar alertas do INMET:", err);
+}
+
+
 }
 

@@ -1,3 +1,5 @@
+
+
 async function previewRj() {
 
     const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=-22.91&lon=-43.17&appid=${API_KEY}&units=metric&lang=pt`);

@@ -5,12 +5,12 @@ const divMapa = document.getElementById('mapa');
 const dias = document.getElementById('dias');
 const botaovoltar = document.getElementById('voltar');
 const mapact = document.getElementById('mapaContainer');
- const containerbuscas = document.querySelector('.containerbuscas');
+const containerbuscas = document.querySelector('.containerbuscas');
 
 inputbusca.addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         if (cidade) {
-            buscarPrevisao(cidade);
+         buscarPrevisao(cidade)
         }
     }
 })
@@ -46,7 +46,7 @@ otherinfo.addEventListener('click', function(){
     resu2.style.display = 'none';
     alertas.style.display = 'block';
     nextdias.style.display = 'block';
-    fechar.style.top = '-39.3em';
+    fechar.style.top = '-39.4em';
     nextdias.style.marginLeft = '15em';
     mapact.style.display = 'none';
     divMapa.style.display = 'none';
