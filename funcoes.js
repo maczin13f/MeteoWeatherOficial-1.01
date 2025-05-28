@@ -175,7 +175,6 @@ function getCorTempMax(tempmax) {
   } else {
     return '#ff6f00'
   }
-  
 }
 
 function mostrarMapa(lat, lon, cidade) {
@@ -314,3 +313,18 @@ async function apagarHistoricoAll() {
     alert("Erro ao apagar histórico.");
   }
 }
+
+function normalizarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+const secaoAlertas = document.getElementById('alertasClimaticos');
+
+function hrefAlertas() {
+  secaoAlertas.style.display = 'block';
+  window.location.href = '#alertasagora';
+}
+

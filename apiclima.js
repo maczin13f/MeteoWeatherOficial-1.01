@@ -108,6 +108,7 @@ async function buscarPrevisao() {
             <p class="cidade"> 🌍 <strong>${cidadeFormatada} ${estado ? ", " + estado : ""} - ${paisNome}</strong></p> 
             <p class="temperatura" style="color: ${corTemperatura};"> 🌡️ <strong>${Math.round(temperatura)}°C</strong></p>
             <p class="sensacao">Sensação Térmica De: <span style="color: ${corTemperatura};">${Math.round(sensacao)}°C</span></p>
+            <p id='hrefalertas'>Ver Alertas Ativos!</p>
             <p class="ar">💨 Qualidade do Ar: <strong><span style="color: ${qualidadeAr.cor};">${qualidadeAr.descricao}</span></strong></p>
             <p class="minima">Min: <span style="color: ${cortempmin};">${Math.round(tempmin)}°C</span></p>
             <p class="maxima">Max: <span style="color: ${cortempmax};">${Math.round(tempmax)}°C</span></p>
@@ -358,46 +359,43 @@ async function buscarPrevisao() {
     } catch (error) {
         console.error("Erro ao buscar previsão:", error);
     }
+   try {
+  const response = await fetch('http://localhost:3000/inmet-alertas');
+  const data = await response.json();
+console.log("🔍 Dados recebidos do INMET:", data);
 
-    const proxyUrl = 'http://localhost:3000/inmet-alertas';
+  let alertasHtml = "";
 
-    try {
-      const response = await fetch(proxyUrl);
-      const xmlText = await response.text();
-    
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-    
-      const alerts = xmlDoc.getElementsByTagName("alert");
-      let alertasHtml = "";
-    
-      for (let i = 0; i < alerts.length; i++) {
-        const alert = alerts[i];
-        const title = alert.getElementsByTagName("event")[0]?.textContent || "Sem título";
-        const effective = alert.getElementsByTagName("effective")[0]?.textContent || "Data não informada";
-        const expires = alert.getElementsByTagName("expires")[0]?.textContent || "Data não informada";
-        const description = alert.getElementsByTagName("description")[0]?.textContent || "Sem descrição";
-    
-        alertasHtml += `
-          <div class="alerta alerta-inmet">
-            <h4>⚠️ ${title}</h4>
-            <p><strong>Início:</strong> ${new Date(effective).toLocaleString("pt-BR")}</p>
-            <p><strong>Fim:</strong> ${new Date(expires).toLocaleString("pt-BR")}</p>
-            <p>${description}</p>
-          </div>
-        `;
-      }
-    
-      if (alertasHtml) {
-        const alertasContainer = document.getElementById("alertasClimaticos");
-        alertasContainer.innerHTML = alertasHtml;
-        alertasContainer.style.display = "block";
-      }
-    
-    } catch (err) {
-      console.error("Erro ao buscar ou processar alertas do INMET:", err);
-    }
-    
+  const alertas = [...data.hoje];
+const cidadeNormalizada = normalizarTexto(document.getElementById("cidade").value);
 
+const alertasFiltrados = alertas.filter(alerta =>
+  normalizarTexto(alerta.municipios || "").includes(cidadeNormalizada)
+);
+
+
+
+for (const alerta of alertasFiltrados) {
+  alertasHtml += `
+    <div class="alerta-inmet">
+      <h4>⚠️ ${alerta.descricao}</h4>
+      <p id= 'estadosalertas'><strong>Estados Afetados:</strong> ${alerta.estados}</p>
+      <p><strong>Início:</strong> ${new Date(alerta.data_inicio).toLocaleString("pt-BR")}</p>
+      <p><strong>Fim:</strong> ${new Date(alerta.data_fim).toLocaleString("pt-BR")}</p>
+      <p><strong>Severidade:</strong> ${alerta.severidade}</p>
+      ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
+    </div>
+  `;
+}
+
+if (alertasHtml) {
+  const alertasContainer = document.getElementById("alertasClimaticos");
+  alertasContainer.innerHTML = alertasHtml;
+  alertasContainer.style.display = "none";
+}
+
+} catch (err) {
+  console.error("Erro ao buscar ou processar alertas do INMET (JSON):", err);
+}
 }
 

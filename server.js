@@ -78,16 +78,21 @@ app.delete("/apagar-buscas/:user_id", async (req, res) => {
 
 // servidor.js
 
+
+
 app.get('/inmet-alertas', async (req, res) => {
   try {
-    const response = await fetch('https://alertas2.inmet.gov.br/CAP/alertas.xml');
-    const xml = await response.text();
+    const response = await fetch('https://apiprevmet3.inmet.gov.br/avisos/ativos');
 
-    res.set('Content-Type', 'application/xml');
-    res.send(xml);
+    if (!response.ok) {
+      throw new Error(`Erro HTTP ${response.status}`);
+    }
+
+    const json = await response.json();
+    res.json(json);
   } catch (error) {
-    console.error('Erro ao buscar alertas do INMET:', error);
-    res.status(500).send('Erro ao buscar alertas');
+    console.error("❌ Erro ao buscar alertas do INMET (JSON):", error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
