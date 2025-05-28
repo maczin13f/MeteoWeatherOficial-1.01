@@ -360,7 +360,7 @@ async function buscarPrevisao() {
         console.error("Erro ao buscar previsão:", error);
     }
    try {
-  const response = await fetch('http://localhost:3000/inmet-alertas');
+  const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
   const data = await response.json();
 console.log("🔍 Dados recebidos do INMET:", data);
 
