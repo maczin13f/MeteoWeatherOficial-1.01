@@ -108,7 +108,6 @@ async function buscarPrevisao() {
             <p class="cidade"> 🌍 <strong>${cidadeFormatada} ${estado ? ", " + estado : ""} - ${paisNome}</strong></p> 
             <p class="temperatura" style="color: ${corTemperatura};"> 🌡️ <strong>${Math.round(temperatura)}°C</strong></p>
             <p class="sensacao">Sensação Térmica De: <span style="color: ${corTemperatura};">${Math.round(sensacao)}°C</span></p>
-            <p id='hrefalertas'>Ver Alertas Ativos!</p>
             <p class="ar">💨 Qualidade do Ar: <strong><span style="color: ${qualidadeAr.cor};">${qualidadeAr.descricao}</span></strong></p>
             <p class="minima">Min: <span style="color: ${cortempmin};">${Math.round(tempmin)}°C</span></p>
             <p class="maxima">Max: <span style="color: ${cortempmax};">${Math.round(tempmax)}°C</span></p>
@@ -359,43 +358,61 @@ async function buscarPrevisao() {
     } catch (error) {
         console.error("Erro ao buscar previsão:", error);
     }
-   try {
-  const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
-  const data = await response.json();
-console.log("🔍 Dados recebidos do INMET:", data);
+    try {
+      const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
+      const data = await response.json();
+      console.log("🔍 Dados recebidos do INMET:", data);
+    
+      const alertas = [...data.hoje];
+      const cidadeNormalizada = normalizarTexto(document.getElementById("cidade").value);
+    
+      const alertasFiltrados = alertas.filter(alerta =>
+        normalizarTexto(alerta.municipios || "").includes(cidadeNormalizada)
+      );
+    
+      const hrefAlertas = document.getElementById('hrefalertas');
+      const alertasContainer = document.getElementById("alertasClimaticos");
+    
+      // Encontra o alerta mais severo possível com base nas regras
+      const grandePerigo = alertasFiltrados.find(a => a.severidade === "Grande Perigo");
+      const perigo = alertasFiltrados.find(a => a.severidade === "Perigo");
+      const perigoPotencial = alertasFiltrados.find(a => a.severidade === "Perigo Potencial");
+    
+      const alertaMaisRelevante = grandePerigo || perigo || perigoPotencial;
+    
+      if (alertaMaisRelevante) {
+        const alerta = alertaMaisRelevante;
+        const alertasHtml = `
+          <div class="alerta-inmet">
+            <h4 id='h4'>⚠️ ${alerta.descricao}</h4>
+            <p id='estadosalertas'>Estados Afetados: ${alerta.estados}</p>
+            <p><strong>Início:</strong> ${new Date(alerta.data_inicio).toLocaleString("pt-BR")}</p>
+            <p><strong>Fim:</strong> ${new Date(alerta.data_fim).toLocaleString("pt-BR")}</p>
+            <p id='severidadealerta'><strong>Severidade:</strong> ${alerta.severidade}</p>
+            ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
+          </div>
+        `;
+    
+        alertasContainer.innerHTML = alertasHtml;
+        alertasContainer.style.display = "block";
+        hrefAlertas.style.display = 'none';
+       
+    
+      } else {
+        // Nenhum alerta encontrado
+        alertasContainer.style.display = 'none';
+        hrefAlertas.style.display = 'none';
+        hrefAlertas.style.textShadow = 'white 1px 1px 1px';
+      };
 
-  let alertasHtml = "";
+      const tituloalerta = document.querySelector('.alerta-inmet #severidadealerta')
+      const h4 = document.getElementById('h4')
 
-  const alertas = [...data.hoje];
-const cidadeNormalizada = normalizarTexto(document.getElementById("cidade").value);
+      if(tituloalerta && tituloalerta.textContent.includes('Perigo')) {
+         h4.style.color = 'red';
+      }
 
-const alertasFiltrados = alertas.filter(alerta =>
-  normalizarTexto(alerta.municipios || "").includes(cidadeNormalizada)
-);
-
-
-
-for (const alerta of alertasFiltrados) {
-  alertasHtml += `
-    <div class="alerta-inmet">
-      <h4>⚠️ ${alerta.descricao}</h4>
-      <p id= 'estadosalertas'><strong>Estados Afetados:</strong> ${alerta.estados}</p>
-      <p><strong>Início:</strong> ${new Date(alerta.data_inicio).toLocaleString("pt-BR")}</p>
-      <p><strong>Fim:</strong> ${new Date(alerta.data_fim).toLocaleString("pt-BR")}</p>
-      <p><strong>Severidade:</strong> ${alerta.severidade}</p>
-      ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
-    </div>
-  `;
-}
-
-if (alertasHtml) {
-  const alertasContainer = document.getElementById("alertasClimaticos");
-  alertasContainer.innerHTML = alertasHtml;
-  alertasContainer.style.display = "none";
-}
-
-} catch (err) {
-  console.error("Erro ao buscar ou processar alertas do INMET (JSON):", err);
-}
-}
-
+    } catch (err) {
+      console.error("Erro ao buscar ou processar alertas do INMET (JSON):", err);
+    }
+  }    

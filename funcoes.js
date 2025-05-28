@@ -322,9 +322,14 @@ function normalizarTexto(texto) {
 }
 
 const secaoAlertas = document.getElementById('alertasClimaticos');
+const hrefAlertas = document.getElementById('hrefalertas');
 
-function hrefAlertas() {
-  secaoAlertas.style.display = 'block';
-  window.location.href = '#alertasagora';
-}
+hrefAlertas.addEventListener("mouseover", () => {
+  hrefAlertas.style.display = 'none';
+  
+});
+
+otherinfo.addEventListener("mouseout", () => {
+  otherinfo.style.background = '';
+});
 

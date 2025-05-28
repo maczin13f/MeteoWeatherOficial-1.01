@@ -27,6 +27,25 @@ span#titulosite {
 
 }
 
+#alertasClimaticos {
+  position: relative;
+  left: 33.4em;
+  width: 25em;
+  bottom: 51em;
+  background: white;
+  border-radius: 10em;
+  height: 26em;
+  border: solid black;
+}
+
+.alerta-inmet {
+    text-align: center;
+    position: relative;
+    left: 2.5em;
+    line-height: 1em;
+    top: 1em;
+}
+
 #otherinfo {
     position: relative;
     top: -3.7em;
@@ -115,21 +134,45 @@ h5 {
 }
 
 #hrefalertas {
-    position: relative;
-    text-align: center;
-    font-size: 25px;
-    width: 49em;
-    left: 1.5em;
-    bottom: 3em;
-    color: rgb(72, 255, 0);
-    text-shadow: white 1px 1px 1px;
+    
+    position: absolute;
+    margin-left: 25em;
+    font-size: 21px;
+    margin-top: -16em;
+    color: yellow;
+    text-shadow: black 1px 1px 1px;
+    animation: ajustarSize 1s infinite ease-in-out;
+    border-radius: 20px;
+    padding: 5px;
+    background: url(imagens/Alerta.gif);
+    background-size: cover;
+    height: 10em;
+    width: 10em;
     cursor: pointer;
 }
 
+
+@keyframes ajustarSize {
+    0% {
+        color: yellow;
+    }
+    50% {
+        color: orange;
+        text-shadow: black 1px 1px 1px;
+    }
+    100% {
+       color: orangered;
+       text-shadow: black 1px 1px 1px;
+    }
+    
+  }
+
 #hrefalertas:hover {
-    color: white;
-    text-shadow: rgb(72, 255, 0) 1px 2px 2px;
+   color: black;
+   
+   
 }
+
 
 #fechar {
     position: relative;
