@@ -28,14 +28,21 @@ span#titulosite {
 }
 
 #alertasClimaticos {
+    cursor: pointer;
   position: relative;
   left: 31.6em;
   width: 25em;
-  bottom: 48em;
+  bottom: 51em;
   background: white;
   border-radius: 10em;
   height: 20em;
   border: solid black;
+  padding: 0.5em;
+}
+
+#alertaativotxt {
+    margin-left: 0.9em;
+    font-size: 25px;
 }
 
 .alerta-inmet {
@@ -141,7 +148,7 @@ h5 {
     margin-top: -16em;
     color: yellow;
     text-shadow: black 1px 1px 1px;
-    animation: ajustarSize 1s infinite ease-in-out;
+    animation: ajustarSize 2s infinite ease-in-out;
     border-radius: 20px;
     padding: 5px;
     background: url(imagens/Alerta.gif);
@@ -175,7 +182,7 @@ h5 {
 #fechar {
     position: relative;
     left: 45em;
-    top: -35.4em;
+    top: -35.5em;
     border: solid red 3px;
     border-radius: 30px;
     color: red;
@@ -209,7 +216,7 @@ h5 {
     width: 145px;
     height: 190px;
     gap: 20px;
-    background: url(imagens/ceunormal.jpg);
+    background: linear-gradient(to right, rgb(0, 102, 255), white);
     background-size: cover;
     background-position: center 10%;
     font-size: 15px;

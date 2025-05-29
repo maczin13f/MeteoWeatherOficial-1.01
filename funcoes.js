@@ -324,13 +324,13 @@ function normalizarTexto(texto) {
 const secaoAlertas = document.getElementById('alertasClimaticos');
 const hrefAlertas = document.getElementById('hrefalertas');
 
-hrefAlertas.addEventListener("mouseenter", () => {
+hrefAlertas.addEventListener("click", () => {
   hrefAlertas.style.display = 'none';
   secaoAlertas.style.display = 'block';
  
 });
 
-secaoAlertas.addEventListener("mouseleave", () => {
+secaoAlertas.addEventListener("click", () => {
   secaoAlertas.style.display = 'none';
   hrefAlertas.style.display = 'block';
 });

@@ -7,6 +7,7 @@ const botaovoltar = document.getElementById('voltar');
 const mapact = document.getElementById('mapaContainer');
 const containerbuscas = document.querySelector('.containerbuscas');
 
+
 inputbusca.addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         if (cidade) {
@@ -32,7 +33,7 @@ otherinfo.addEventListener('click', function(){
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
     otherinfo.style.bottom = '4.3em';
-    fechar.style.top = '-39.4em';
+    fechar.style.top = '-39.35em';
     paisinput.style.top = '-11.45em';
     paisinput.style.left = '49em';
     mapact.style.display = 'block';
@@ -48,7 +49,7 @@ otherinfo.addEventListener('click', function(){
     resu2.style.display = 'none';
     alertas.style.display = 'block';
     nextdias.style.display = 'block';
-    fechar.style.top = '-35.4em';
+    fechar.style.top = '-35.5em';
     nextdias.style.marginLeft = '15em';
     mapact.style.display = 'none';
     divMapa.style.display = 'none';
@@ -60,7 +61,7 @@ otherinfo.addEventListener('click', function(){
 
 const botoespreview = document.getElementById('botoespreview')
 
-fechar.addEventListener('click', function(){
+function fecharBuscas() {
     resu.style.display = 'none';;
     resu1.style.display = 'none';
     resu2.style.display = 'none';
@@ -74,7 +75,10 @@ fechar.addEventListener('click', function(){
     fechar.style.display = 'none';
     carregarBuscas();
     containerbuscas.style.display = 'block';
-})
+    hrefAlertas.style.display = 'none';
+    secaoAlertas.style.display = 'none';
+}
+
 
 const verpreview1 = document.getElementById('preview1');
 const verpreview2 = document.getElementById('preview2');

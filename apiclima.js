@@ -53,7 +53,7 @@ async function buscarPrevisao() {
             <div class="card-dias">
                 <p class="dia-nome">${previsao.diaSemana}</p>
                 <img src="https://openweathermap.org/img/wn/${previsao.icone}.png" alt="${previsao.descricao}" class="icone" />
-                <p class="min-max"> Min: ${previsao.tempMin}°C / Max: ${previsao.tempMax}°C</p>
+                <p class="min-max"> Min: ${Math.round(previsao.tempMin)}°C / Max: ${Math.round(previsao.tempMax)}°C</p>
             </div>
         `).join("");
 
@@ -146,8 +146,8 @@ async function buscarPrevisao() {
     // result 3
     document.getElementById("resultado3").innerHTML = `
             <div class="dataehora">
-                <p class="data"> 📅${date}</p>
-                <p class="hora"> ⏰${time}</p>
+                <p class="data"> 📅 ${date}</p>
+                <p class="hora"> ⏰ ${time}</p>
             </div>
         `;
     document.getElementById("resultado3").style.display = "block";
@@ -171,7 +171,7 @@ async function buscarPrevisao() {
       resu1.style.display = 'none';
       resu2.style.display = 'none';
       divMapa.style.display = 'none';
-      fechar.style.top = '-35.4em';
+      fechar.style.top = '-35.5em';
     }
 
 
