@@ -19,13 +19,14 @@
     color: white;
     text-shadow: black 3px 2px 1px;
     position: relative;
+    width: 27em;
     bottom: 2em;
     height: 1.5em;
     text-align: center;
     font-size: 22px;
     border: solid black 3px;
     border-radius: 30px;
-    background: linear-gradient(to right, rgb(255, 225, 0), rgb(0, 102, 255), white);
+    background: linear-gradient(to right, white, rgb(0, 102, 255), white);
 }
 
 .temperatura {
@@ -116,7 +117,7 @@
     position: relative;
     margin-left: 1em;
     border: solid white;
-    background: linear-gradient(to right, rgb(255, 225, 0), rgb(0, 102, 255));
+    background: linear-gradient(to right, white, rgb(0, 102, 255));
     border-radius: 30px;
     width: 6em;
     padding: 1px;
@@ -125,7 +126,7 @@
 
 .data {
     border: solid white;
-    background: linear-gradient(to right, rgb(255, 225, 0), rgb(0, 102, 255));
+    background: linear-gradient(to right, white, rgb(0, 102, 255));
     border-radius: 30px;
     width: 8em;
     padding: 3px;
@@ -194,7 +195,7 @@
     position: relative;
     right: 32.5em;
     top: -17.5em;
-    width: 27.8em;
+    width: 26.8em;
     color: white;
     text-shadow: none;
     line-height: 1.5em;
@@ -240,7 +241,11 @@
     flex-direction: column;
     font-size: 15px;
     font-weight: bold;
-   
+}
+
+#h4 {
+    font-size: 18.5px;
+    text-shadow: black 2px 1px 1px;
 }
 
 .min-max {

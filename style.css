@@ -29,12 +29,12 @@ span#titulosite {
 
 #alertasClimaticos {
   position: relative;
-  left: 33.4em;
+  left: 31.6em;
   width: 25em;
-  bottom: 51em;
+  bottom: 48em;
   background: white;
   border-radius: 10em;
-  height: 26em;
+  height: 20em;
   border: solid black;
 }
 
@@ -61,7 +61,7 @@ span#titulosite {
 }
 
 #otherinfo:hover {
-    background: linear-gradient(to right, rgb(255, 225, 0), rgb(0, 102, 255), white);
+    background: linear-gradient(to right, white, rgb(0, 102, 255), white);
     color: white;
 }
 
@@ -71,6 +71,7 @@ span#titulosite {
     width: 500px;
     top: 250px;
 }
+
 
 #titulo {
     position: relative;
@@ -134,7 +135,6 @@ h5 {
 }
 
 #hrefalertas {
-    
     position: absolute;
     margin-left: 25em;
     font-size: 21px;
@@ -169,15 +169,13 @@ h5 {
 
 #hrefalertas:hover {
    color: black;
-   
-   
 }
 
 
 #fechar {
     position: relative;
-    left: 47em;
-    top: -39.5em;
+    left: 45em;
+    top: -35.4em;
     border: solid red 3px;
     border-radius: 30px;
     color: red;

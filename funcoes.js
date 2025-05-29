@@ -324,12 +324,15 @@ function normalizarTexto(texto) {
 const secaoAlertas = document.getElementById('alertasClimaticos');
 const hrefAlertas = document.getElementById('hrefalertas');
 
-hrefAlertas.addEventListener("mouseover", () => {
+hrefAlertas.addEventListener("mouseenter", () => {
   hrefAlertas.style.display = 'none';
-  
+  secaoAlertas.style.display = 'block';
+ 
 });
 
-otherinfo.addEventListener("mouseout", () => {
-  otherinfo.style.background = '';
+secaoAlertas.addEventListener("mouseleave", () => {
+  secaoAlertas.style.display = 'none';
+  hrefAlertas.style.display = 'block';
 });
+
 

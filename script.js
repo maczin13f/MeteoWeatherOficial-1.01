@@ -32,12 +32,14 @@ otherinfo.addEventListener('click', function(){
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
     otherinfo.style.bottom = '4.3em';
-    fechar.style.top = '-35.5em';
+    fechar.style.top = '-39.4em';
     paisinput.style.top = '-11.45em';
     paisinput.style.left = '49em';
     mapact.style.display = 'block';
     document.querySelector('#previsaoDias h5').style.marginLeft = '-6.5em';
     otherinfo.textContent = 'Voltar';
+    hrefAlertas.style.display = 'none';
+    secaoAlertas.style.display = 'none';
     }
     else if (resu.style.display === 'none') {
         resu.style.display = 'block';
@@ -46,11 +48,13 @@ otherinfo.addEventListener('click', function(){
     resu2.style.display = 'none';
     alertas.style.display = 'block';
     nextdias.style.display = 'block';
-    fechar.style.top = '-39.4em';
+    fechar.style.top = '-35.4em';
     nextdias.style.marginLeft = '15em';
     mapact.style.display = 'none';
     divMapa.style.display = 'none';
     otherinfo.textContent = 'Mais Informações';
+     hrefAlertas.style.display = 'block';
+     secaoAlertas.style.display = 'none'
     } 
 })
 
