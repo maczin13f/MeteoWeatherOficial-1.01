@@ -41,8 +41,28 @@ span#titulosite {
 }
 
 #alertaativotxt {
-    margin-left: 0.9em;
-    font-size: 25px;
+    position: relative;
+    font-size: 30px;
+    text-shadow: black 2px 2px 2px;
+    right: 0.5em;
+    bottom: 0.2em;
+    animation: aumentaLetra 1.9s infinite;
+}
+
+@keyframes aumentaLetra {
+    0% {
+        font-size: 30px;
+    }
+    50% {
+        font-size: 33px;
+    }
+    100% {
+        font-size: 30px;
+    }
+}
+
+#alertaativotxt:hover {
+    animation-play-state: paused;
 }
 
 .alerta-inmet {
@@ -50,7 +70,7 @@ span#titulosite {
     position: relative;
     left: 2.5em;
     line-height: 1em;
-    top: 1em;
+    top: -1em;
 }
 
 #otherinfo {
@@ -143,39 +163,41 @@ h5 {
 
 #hrefalertas {
     position: absolute;
-    margin-left: 25em;
+    margin-left: 28em;
     font-size: 21px;
     margin-top: -16em;
     color: white;
     text-shadow: black 1px 1px 1px;
     animation: ajustarSize 2s infinite ease-in-out;
-    border-radius: 20px;
+    border-radius: 900px;
     padding: 5px;
-    background: url(imagens/Alerta.gif);
+    background: transparent;
+    border: solid black 3px;
     background-size: cover;
-    height: 10em;
-    width: 10em;
+    height: 3em;
+    width: 3em;
     cursor: pointer;
 }
 
 
 @keyframes ajustarSize {
     0% {
-        color: yellow;
+        display: none;
     }
     50% {
-        color: orange;
-        text-shadow: black 1px 1px 1px;
+        background: url(imagens/alertaimg.png);
+        background-size: cover;
+        background-color: white;
+        border: solid white 3px;
     }
     100% {
-       color: orangered;
-       text-shadow: black 1px 1px 1px;
+      display: block;
     }
     
   }
 
 #hrefalertas:hover {
-   color: black;
+   animation-play-state: paused;
 }
 
 
@@ -320,4 +342,133 @@ h5 {
     flex-direction: row;
     gap: 30px;
     
+}
+
+@media screen and (max-width: 1024px) {
+  #resultado,
+  #resultado2,
+  #resultado3,
+  #resultado1 {
+    color: teal;
+    width: 90%;
+    left: auto;
+    margin: 0 auto;
+    top: 0;
+  }
+
+  .cidade {
+    width: 90%;
+    font-size: 18px;
+    left: auto;
+    right: auto;
+  }
+
+  .temperatura {
+    font-size: 36px;
+    left: 0;
+  }
+
+  .sensacao,
+  .ar {
+    right: 0;
+    bottom: 0;
+    font-size: 16px;
+  }
+
+  .minima,
+  .maxima {
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  #resultado3 {
+    left: auto;
+    width: 90%;
+    top: 0;
+  }
+
+  .ladolon,
+  .ladolat,
+  .pressaohumidade {
+    margin-left: 1em;
+    width: 90%;
+    gap: 10px;
+  }
+
+  #alertasClimaticos {
+    left: auto;
+    width: 90%;
+    margin: 0 auto;
+    top: 0;
+  }
+
+  #descricao {
+    left: auto;
+    width: 90%;
+    top: 0;
+    margin: 0 auto;
+  }
+
+  #hrefalertas {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    top: 0;
+  }
+
+  #mapa {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .buscas {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
+
+/* Responsividade para telas maiores (monitores grandes, >1440px) */
+@media screen and (min-width: 1440px) {
+  #resultado,
+  #resultado2,
+  #resultado3,
+  #resultado1 {
+    width: 60%;
+  }
+
+  .cidade {
+    width: 40em;
+    font-size: 26px;
+  }
+
+  .temperatura {
+    font-size: 60px;
+  }
+
+  .sensacao,
+  .ar {
+    font-size: 22px;
+  }
+
+  .minima,
+  .maxima {
+    font-size: 22px;
+  }
+
+  #alertasClimaticos {
+    width: 30em;
+  }
+
+  #descricao {
+    width: 40em;
+  }
+
+  #mapa {
+    width: 70em;
+    height: 40em;
+  }
 }

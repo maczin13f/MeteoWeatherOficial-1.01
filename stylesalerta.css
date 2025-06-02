@@ -1,0 +1,98 @@
+body {
+    color: black;
+    background: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+#alertasClimaticos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 40em;
+    gap: 20px;
+}
+
+.alerta-inmet {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 32em;
+    justify-content: center;
+    align-items: center;
+    border: solid black 3px;
+    width: 36.3em;
+    padding: 2px;
+    border-radius: 30px;
+}
+
+.fixaralerta {
+    position: relative;
+    border: solid black;
+    border-radius: 30px;
+    bottom: 0.3em;
+    cursor: pointer;
+    height: 4em;
+    font-weight: bold;
+    color: red;
+    text-shadow: black 1px 1px 1px;
+}
+
+
+.instrucoes {
+    position: relative;
+    cursor: pointer;
+    border: solid black;
+    border-radius: 30px;
+    padding: 2px;
+    background: rgb(65, 169, 225);
+    color: white;
+    text-shadow: black 1px 1px 1px;
+    bottom: 1em;
+    height: 2em;
+}
+
+.instrucoestxt {
+    position: relative;
+    top: 0.4em;
+}
+
+.prevencoes {
+    align-items: center;
+    text-align: center;
+}
+
+strong {
+   color: red;
+}
+
+.strongseveridade {
+    text-shadow: black 1px 1px 2px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+li {
+   position: relative;
+   bottom: 3.5em;
+}
+
+.h2prev {
+    position: relative;
+    bottom: 1em;
+    cursor: pointer;
+}
+
+.descriscos {
+    text-align: center;
+}
+
+.h4 {
+    font-weight: bold;
+    text-decoration:dotted;
+    font-size: 20px;
+}
+
+.prevencoesdiv {
+    display: flex;
+    flex-direction: column;
+}

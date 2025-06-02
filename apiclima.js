@@ -314,10 +314,10 @@ async function buscarPrevisao() {
     } else {
       background.style.background = 'url(imagens/ceusol.jpg)';
       background.style.backgroundSize = "cover";
-      background.style.backgroundPosition = 'center 35%';
+      background.style.backgroundPosition = 'center 1%';
       resu1.style.background = 'url(imagens/ceusol.jpg)';
       resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 38%';
+      resu1.style.backgroundPosition = 'center 20%';
       resu2.style.background = 'url(imagens/ceusol.jpg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -379,13 +379,15 @@ async function buscarPrevisao() {
     const perigoPotencial = alertasFiltrados.find(a => a.severidade === "Perigo Potencial");
 
     const alertaMaisRelevante = grandePerigo || perigo || perigoPotencial;
+    const inputValue = document.getElementById('cidade').value;
 
     if (alertaMaisRelevante) {
       const alerta = alertaMaisRelevante;
       const alertasHtml = `
           <div class="alerta-inmet">
             <h4 id='h4'> ${alerta.descricao}</h4>
-            <p id='estadosalertas'>Estados Afetados: ${alerta.estados}</p>
+            <p id='estadosalertas'>Estados: ${alerta.estados}</p>
+            <p id='locais'> Local: ${inputValue}</p>
             <p id='severidadealerta'><strong>Severidade:</strong> ${alerta.severidade}</p>
             ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
           </div>
@@ -399,11 +401,14 @@ async function buscarPrevisao() {
       const h4 = document.getElementById('h4')
 
       if (tituloalerta && tituloalerta.textContent.includes('Grande Perigo')) {
-        h4.style.color = 'red';
+        h4.style.color = 'orangered';
+        hrefAlertas.style.background = 'orangered';
       } else if (tituloalerta && tituloalerta.textContent.includes('Perigo Potencial')) {
         h4.style.color = 'yellow';
+        hrefAlertas.style.background = 'yellow';
       } else if (tituloalerta && tituloalerta.textContent.includes('Perigo')) {
         h4.style.color = 'orange';
+        hrefAlertas.style.background = 'orange';
       }
     } else {
       alertasContainer.style.display = 'none';
