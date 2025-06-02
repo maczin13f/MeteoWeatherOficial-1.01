@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 14px;
@@ -162,15 +163,13 @@ h5 {
 }
 
 #hrefalertas {
-    position: absolute;
     margin-left: 28em;
     font-size: 21px;
-    margin-top: -16em;
     color: white;
     text-shadow: black 1px 1px 1px;
     animation: ajustarSize 2s infinite ease-in-out;
     border-radius: 900px;
-    padding: 5px;
+    transform: translateY(-15em);
     background: transparent;
     border: solid black 3px;
     background-size: cover;
@@ -191,7 +190,6 @@ h5 {
         border: solid white 3px;
     }
     100% {
-      display: block;
     }
     
   }
@@ -202,9 +200,8 @@ h5 {
 
 
 #fechar {
-    position: relative;
-    left: 45em;
-    top: -35.5em;
+    transform: translateX(45em);
+    margin-top: -39.5em;
     border: solid red 3px;
     border-radius: 30px;
     color: red;
@@ -223,7 +220,7 @@ h5 {
 }
 
 #mapa {
-    margin-top: -40em;
+    transform: translateY(29.5em);
     height: 33em;
     width: 58em;
     border: 3px solid black;
@@ -255,15 +252,18 @@ h5 {
     align-items: center;
     text-align: center;
 }
-
+#listapais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 11em;
+}
 #pais {
-    position: relative;
     width: 60px;
-    left: 50em;
-    top: -8.86em;
     border: solid black 2px;
     border-radius: 20px;
     height: 1.7em;
+    transform: translateY(-8.8em)
 }
 
 #pais::placeholder {
@@ -288,9 +288,8 @@ h5 {
 }
 
 #botaobuscar {
-    position: relative;
-    top: -3.97em;
-    left: 11.6%;
+    transform: translateY(-4em);
+    margin-left: 15em;
     height: 48px;
     width: 55px;
     border: solid black 2px;
@@ -341,5 +340,4 @@ h5 {
     display: flex;
     flex-direction: row;
     gap: 30px;
-    
 }

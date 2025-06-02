@@ -387,7 +387,7 @@ async function buscarPrevisao() {
           <div class="alerta-inmet">
             <h4 id='h4'> ${alerta.descricao}</h4>
             <p id='estadosalertas'>Estados: ${alerta.estados}</p>
-            <p id='locais'> Local: ${inputValue}</p>
+            <p id='locais'> Local: ${(inputValue).toUpperCase()}</p>
             <p id='severidadealerta'><strong>Severidade:</strong> ${alerta.severidade}</p>
             ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
           </div>

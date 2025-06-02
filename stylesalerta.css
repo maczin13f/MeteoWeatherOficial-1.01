@@ -12,49 +12,48 @@ body {
     gap: 20px;
 }
 
+li {
+    transform: translateY(-2em);
+}
+
 .alerta-inmet {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 32em;
+    height: 40em;
     justify-content: center;
     align-items: center;
     border: solid black 3px;
     width: 36.3em;
-    padding: 2px;
     border-radius: 30px;
 }
 
-.fixaralerta {
-    position: relative;
-    border: solid black;
-    border-radius: 30px;
-    bottom: 0.3em;
-    cursor: pointer;
-    height: 4em;
-    font-weight: bold;
-    color: red;
-    text-shadow: black 1px 1px 1px;
+#ulprev:focus {
+    outline: none;
 }
 
 
 .instrucoes {
-    position: relative;
     cursor: pointer;
     border: solid black;
     border-radius: 30px;
-    padding: 2px;
     background: rgb(65, 169, 225);
     color: white;
     text-shadow: black 1px 1px 1px;
-    bottom: 1em;
-    height: 2em;
+    padding: 2px;
 }
 
-.instrucoestxt {
-    position: relative;
-    top: 0.4em;
+.instrucoesvoltar {
+    cursor: pointer;
+    border: solid black;
+    border-radius: 30px;
+    background: rgb(65, 169, 225);
+    color: white;
+    text-shadow: black 1px 1px 1px;
+    width: 8em;
+    margin-left: 11em;
 }
+
 
 .prevencoes {
     align-items: center;
@@ -71,14 +70,8 @@ strong {
     cursor: pointer;
 }
 
-li {
-   position: relative;
-   bottom: 3.5em;
-}
-
 .h2prev {
-    position: relative;
-    bottom: 1em;
+    transform: translateY(-0.5em);
     cursor: pointer;
 }
 

@@ -8,6 +8,7 @@ const mapact = document.getElementById('mapaContainer');
 const containerbuscas = document.querySelector('.containerbuscas');
 
 
+
 inputbusca.addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         if (cidade) {
@@ -25,6 +26,9 @@ const alertas = document.getElementById('alertasClimaticos');
 const nextdias = document.getElementById('previsaoDias');
 
 otherinfo.addEventListener('click', function(){
+    const secaoAlertas = document.getElementById('alertasClimaticos');
+const hrefAlertas = document.getElementById('hrefalertas');
+
     if (resu.style.display === 'block') {
     resu.style.display = 'none';
     resu3.style.display = 'none';
