@@ -12,7 +12,7 @@ const containerbuscas = document.querySelector('.containerbuscas');
 inputbusca.addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         if (cidade) {
-         buscarPrevisao(cidade)
+         buscarPrevisao(cidade);
         }
     }
 })
@@ -24,49 +24,54 @@ const resu3 = document.getElementById('resultado3');
 const resu2 = document.getElementById('resultado2');
 const alertas = document.getElementById('alertasClimaticos');
 const nextdias = document.getElementById('previsaoDias');
+const background = document.getElementById('background');
 
 otherinfo.addEventListener('click', function(){
     const secaoAlertas = document.getElementById('alertasClimaticos');
 const hrefAlertas = document.getElementById('hrefalertas');
+const grafico = document.getElementById('graficoClima');
 
-    if (resu.style.display === 'block') {
+    if (resu.style.display === '') {
+        fechar.style.transform = 'translateY(-39.4em)';
+    background.style.display = 'none';
     resu.style.display = 'none';
     resu3.style.display = 'none';
     resu1.style.display = 'block';
     resu2.style.display = 'block';
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
-    otherinfo.style.bottom = '4.3em';
-    fechar.style.top = '-39.35em';
-    paisinput.style.top = '-11.45em';
-    paisinput.style.left = '49em';
     mapact.style.display = 'block';
     document.querySelector('#previsaoDias h5').style.marginLeft = '-6.5em';
     otherinfo.textContent = 'Voltar';
     hrefAlertas.style.display = 'none';
     secaoAlertas.style.display = 'none';
+    grafico.style.display = 'block'
     }
     else if (resu.style.display === 'none') {
+        background.style.display = 'block';
         resu.style.display = 'block';
     resu3.style.display = 'block';
     resu1.style.display = 'none';
     resu2.style.display = 'none';
     alertas.style.display = 'block';
     nextdias.style.display = 'block';
-    fechar.style.top = '-35.5em';
     nextdias.style.marginLeft = '15em';
     mapact.style.display = 'none';
     divMapa.style.display = 'none';
     otherinfo.textContent = 'Mais Informações';
      hrefAlertas.style.display = 'block';
-     secaoAlertas.style.display = 'none'
+     secaoAlertas.style.display = 'none';
+     grafico.style.display = 'none'
     } 
 })
 
-const botoespreview = document.getElementById('botoespreview')
+const botoespreview = document.getElementById('botoespreview');
 
 function fecharBuscas() {
-    resu.style.display = 'none';;
+    const secaoAlertas = document.getElementById('alertasClimaticos');
+const hrefAlertas = document.getElementById('hrefalertas');
+    background.style.display = 'none'
+    resu.style.display = 'none';
     resu1.style.display = 'none';
     resu2.style.display = 'none';
     resu3.style.display = 'none';
@@ -75,7 +80,7 @@ function fecharBuscas() {
     nextdias.style.display = 'none';
     otherinfo.style.display = 'none';
     botoespreview.style.display = 'block';
-    paisinput.style.top = '-8.86em';
+    paisinput.style.transform = 'translateY(-8.8em)';  
     fechar.style.display = 'none';
     carregarBuscas();
     containerbuscas.style.display = 'block';
@@ -158,6 +163,68 @@ verpreview5.addEventListener('click', function(){
     }
 })
 
+function obterEstacao(data = new Date()) {
+  const mes = data.getMonth() + 1;
+  const dia = data.getDate();
 
+  if ((mes === 12 && dia >= 21) || mes === 1 || mes === 2 || (mes === 3 && dia < 20)) {
+    return "Verão";
+  } else if ((mes === 3 && dia >= 20) || mes === 4 || mes === 5 || (mes === 6 && dia < 21)) {
+    return "Outono";
+  } else if ((mes === 6 && dia >= 21) || mes === 7 || mes === 8 || (mes === 9 && dia < 23)) {
+    return "Inverno";
+  } else {
+    return "Primavera";
+  }
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+  Highcharts.chart('graficoClima', {
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: 'Condições Meteorológicas'
+    },
+    xAxis: {
+      categories: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']
+    },
+    yAxis: [{
+      title: { text: 'Umidade / Temperatura (°C)' },
+      opposite: false
+    }, {
+      title: { text: 'Pressão (hPa)' },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true
+    },
+    series: [
+      {
+        name: 'Umidade',
+        data: [75, 82, 60, 70, 80, 65, 78],
+        yAxis: 0,
+        color: '#00aaff'
+      },
+      {
+        name: 'Temperatura (°C)',
+        data: [28, 30, 27, 26, 29, 31, 30],
+        yAxis: 0,
+        color: '#ff3333'
+      },
+      {
+        name: 'Pressão (hPa)',
+        data: [1012, 1015, 1010, 1008, 1013, 1016, 1011],
+        yAxis: 1,
+        color: '#888888'
+      },
+      {
+        name: 'Sensação Térmica (°C)',
+        data: [30, 31, 29, 28, 32, 33, 31],
+        yAxis: 0,
+        color: '#ffaa00'
+      }
+    ]
+  });
+});
 

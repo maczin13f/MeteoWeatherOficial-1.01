@@ -46,6 +46,76 @@ async function buscarPrevisao() {
     const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=pt`);
     const forecastData = await forecastRes.json();
 
+    // Extrair dados de previsão para gráfico
+    const dadosGrafico = forecastData.list.slice(0, 10).map(item => ({
+      hora: new Date(item.dt * 1000).toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' }),
+      temperatura: item.main.temp,
+      sensacao: item.main.feels_like,
+      umidade: item.main.humidity,
+      pressao: item.main.pressure
+    }));
+
+    // Criar gráfico com Highcharts
+    Highcharts.chart('graficoClima', {
+      chart: {
+        type: 'line',
+        backgroundColor: 'rgba(255,255,255,0.95)'
+      },
+      title: {
+        text: '🌤️ Previsão Climática - Próximas Horas'
+      },
+      xAxis: {
+        categories: dadosGrafico.map(d => d.hora),
+        title: { text: 'Hora' }
+      },
+      yAxis: [{
+        title: { text: 'Temperatura (°C) / Sensação (°C)' },
+        labels: { format: '{value}°C' }
+      }, {
+        title: { text: 'Umidade (%)' },
+        labels: { format: '{value}%' },
+        opposite: true
+      }, {
+        title: { text: 'Pressão (hPa)' },
+        labels: { format: '{value} hPa' },
+        opposite: true
+      }],
+      series: [{
+        name: 'Temperatura',
+        data: dadosGrafico.map(d => d.temperatura),
+        tooltip: { valueSuffix: ' °C' },
+        color: '#FF5733',
+        yAxis: 0
+      }, {
+        name: 'Sensação Térmica',
+        data: dadosGrafico.map(d => d.sensacao),
+        tooltip: { valueSuffix: ' °C' },
+        dashStyle: 'ShortDash',
+        color: '#FF8C00',
+        yAxis: 0
+      }, {
+        name: 'Umidade',
+        data: dadosGrafico.map(d => d.umidade),
+        tooltip: { valueSuffix: ' %' },
+        color: '#2980b9',
+        yAxis: 1
+      }, {
+        name: 'Pressão',
+        data: dadosGrafico.map(d => d.pressao),
+        tooltip: { valueSuffix: ' hPa' },
+        color: '#2ecc71',
+        yAxis: 2
+      }],
+      credits: {
+        enabled: false
+      },
+      legend: {
+        layout: 'horizontal',
+        align: 'center',
+        verticalAlign: 'bottom'
+      }
+    });
+
     // Previsão dos próximos dias
     const previsoesPorDia = agruparPrevisaoPorDia(forecastData.list);
 
@@ -77,9 +147,17 @@ async function buscarPrevisao() {
       minute: "2-digit",
     });
 
-    const agora = new Date();
-    const date = agora.toLocaleDateString("pt-BR");
-    const time = agora.toLocaleTimeString("pt-BR");
+    function horasDinamica() {
+      const agora = new Date();
+      const date = agora.toLocaleDateString("pt-BR");
+      const time = agora.toLocaleTimeString("pt-BR");
+
+      document.querySelector(".data").textContent = `📅 ${date}`;
+      document.querySelector(".hora").textContent = `⏰ ${time}`;
+
+      return { date, time };
+    }
+
     const hoje = previsoesPorDia[0];
     const tempmin = hoje.tempMin;
     const tempmax = hoje.tempMax;
@@ -99,7 +177,9 @@ async function buscarPrevisao() {
     const cidadeFormatada = formatarNomeCidade(cidade);
     const corTemperatura = getCorTemperatura(temperatura);
     const cortempmax = getCorTempMax(tempmax);
-    const cortempmin = getCorTempMin(tempmin)
+    const cortempmin = getCorTempMin(tempmin);
+    const direcoesVento = obterDirecaoVento(direcaovento);
+
     otherinfo.addEventListener('click', function () {
       mostrarMapa(lat, lon, cidadeFormatada);
     })
@@ -112,26 +192,29 @@ async function buscarPrevisao() {
             <p class="minima">Min: <span style="color: ${cortempmin};">${Math.round(tempmin)}°C</span></p>
             <p class="maxima">Max: <span style="color: ${cortempmax};">${Math.round(tempmax)}°C</span></p>
         `;
-    document.getElementById("resultado").style.display = "block";
+    document.getElementById("resultado").style.display = "";
+    background.style.display = 'block';
 
     // result 1
     document.getElementById("resultado1").innerHTML = `
-            <div class="ladolon">
                 <p class="lon">📍 Longitude: ${lon}</p> 
-                <p class="velovento">💨 Velocidade Do Vento: ${velocidadeKmh} Km/h</p> 
+                <p class="velovento">💨 Velocidade Vento: ${velocidadeKmh} Km/h</p> 
                 <p class="nascersol">Nascer Do sol: ${sunriseTime}</p>
-            </div>
-            <div class="ladolat">
                 <p class="lat">📍 Latitude: ${lat}</p> 
-                <p class="direcaovento">🧭 Direção Do vento: ${direcaovento}°</p> 
+                <p class="direcaovento">Direção Vento: ${direcaovento}°<strong id='setavento'> - ${direcoesVento}</strong></p> 
                 <p class="pordosol">Por Do sol: ${sunsetTime}</p>
-            </div>
-            <div class="pressaohumidade">
                 <p class="pressao">Pressão Atmosférica: ${pressao} hPa</p>
                 <p class="humidade">Humidade: ${humidade}%</p>
-            </div>
         `;
 
+    document.getElementById("resultado1").style.display = "none";
+
+    const setavento = document.getElementById('setavento');
+    const direcaoventoseta = document.querySelector('.direcaovento').textContent;
+
+    if (direcaoventoseta.includes('330°')) {
+      
+    }
 
     // result 2
     document.getElementById("resultado2").innerHTML = `
@@ -142,17 +225,16 @@ async function buscarPrevisao() {
             <p class="visib"> Visibilidade: ${visibilidadeKm} Km</p>
         `;
 
+    document.getElementById("resultado2").style.display = "none";
 
     // result 3
     document.getElementById("resultado3").innerHTML = `
-            <div class="dataehora">
-                <p class="data"> 📅 ${date}</p>
-                <p class="hora"> ⏰ ${time}</p>
-            </div>
+                <p class="data"></p>
+                <p class="hora"></p>
         `;
-    document.getElementById("resultado3").style.display = "block";
 
-    document.getElementById("fechar").style.display = "block";
+    horasDinamica();
+    setInterval(horasDinamica, 1000);
 
     document.getElementById('otherinfo').style.display = 'block';
 
@@ -160,20 +242,10 @@ async function buscarPrevisao() {
 
     containerbuscas.style.display = 'none';
 
-    const background = document.getElementById('background');
     const cidaderesu = document.querySelector('#resultado .cidade');
     const cidaderesu2 = document.querySelector('#resultado2 .cidade');
     const datadia = document.querySelector('#resultado3 .data');
     const hora = document.querySelector('#resultado3 .hora');
-
-
-    if (resu1.style.display === 'block') {
-      resu1.style.display = 'none';
-      resu2.style.display = 'none';
-      divMapa.style.display = 'none';
-      fechar.style.top = '-35.5em';
-    }
-
 
     if (["⛈️ Trovoadas", "🌦️ Garoa", "🌧️ Chuva"].includes(condicaoTraduzidaComEmoji)) {
       cidaderesu.style.background = 'linear-gradient(to right, blue, black, white)';
@@ -315,9 +387,6 @@ async function buscarPrevisao() {
       background.style.background = 'url(imagens/ceusol.jpg)';
       background.style.backgroundSize = "cover";
       background.style.backgroundPosition = 'center 1%';
-      resu1.style.background = 'url(imagens/ceusol.jpg)';
-      resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 20%';
       resu2.style.background = 'url(imagens/ceusol.jpg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -326,8 +395,7 @@ async function buscarPrevisao() {
     document.getElementById("previsaoDias2").style.display = "none";
 
     const paisinput = document.getElementById('pais');
-    paisinput.style.top = '-11.45em'
-    paisinput.style.left = '49em';
+    paisinput.style.transform = 'translateY(-11.4em)'
 
     const botoespreview = document.getElementById('botoespreview');
 
@@ -338,6 +406,8 @@ async function buscarPrevisao() {
       userId = "user-" + Math.random().toString(36).substring(2, 10);
       localStorage.setItem("id", userId);
     }
+
+    const { date, time } = horasDinamica();
 
     await fetch("https://updatetempweather.onrender.com/save-search", {
       method: "POST",
@@ -396,6 +466,7 @@ async function buscarPrevisao() {
       alertasContainer.innerHTML = alertasHtml;
       alertasContainer.style.display = "none";
       hrefAlertas.style.display = 'block';
+      fechar.style.display = 'block'
 
       const tituloalerta = document.querySelector('.alerta-inmet #severidadealerta')
       const h4 = document.getElementById('h4')
@@ -415,7 +486,8 @@ async function buscarPrevisao() {
       hrefAlertas.style.display = 'none';
       hrefAlertas.style.textShadow = 'white 1px 1px 1px';
     }
+
   } catch (err) {
     console.error("Erro ao buscar ou processar alertas do INMET (JSON):", err);
   }
-}    
+}
