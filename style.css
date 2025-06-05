@@ -132,7 +132,7 @@ span#titulosite {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-top: -13em;
+    margin-top: -6em;
     font-weight: bold;
 }
 
@@ -162,18 +162,18 @@ h5 {
 }
 
 #hrefalertas {
-    margin-left: 28em;
+    margin-left: 48em;
     font-size: 21px;
     color: white;
     text-shadow: black 1px 1px 1px;
     animation: ajustarSize 2s infinite ease-in-out;
-    border-radius: 900px;
-    transform: translateY(-15em);
+    border-radius: 30px;
+    transform: translateY(-9em);
     background: transparent;
     border: solid black 3px;
     background-size: cover;
     height: 3em;
-    width: 3em;
+    width: 5em;
     cursor: pointer;
 }
 
@@ -199,7 +199,7 @@ h5 {
 
 
 #fechar {
-    transform: translateY(-30.1em);
+    transform: translateY(-34.6em);
     margin-left: 82%;
     border: solid red 3px;
     border-radius: 30px;

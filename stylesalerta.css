@@ -24,7 +24,7 @@ li {
     justify-content: center;
     align-items: center;
     border: solid black 3px;
-    width: 36.3em;
+    width: 37.7em;
     border-radius: 30px;
 }
 
@@ -40,7 +40,6 @@ li {
     background: rgb(65, 169, 225);
     color: white;
     text-shadow: black 1px 1px 1px;
-    padding: 2px;
 }
 
 .instrucoesvoltar {

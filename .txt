@@ -1,0 +1,11 @@
+temp_new → Temperatura
+
+wind_new → Vento
+
+clouds_new → Nuvens
+
+precipitation_new → Precipitação
+
+pressure_new → Pressão
+
+snow_new → Neve

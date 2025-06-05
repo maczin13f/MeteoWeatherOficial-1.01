@@ -4,7 +4,7 @@ async function alertasClima() {
   console.log("🔍 Dados recebidos do INMET:", data);
 
   const alertasContainer = document.getElementById("alertasClimaticos");
-  const alertas = [...data.hoje, ...data.futuro];
+  const alertas = [...data.futuro];
 
   if (alertas.length) {
     const alertasHtml = alertas.map(alerta => `
@@ -14,7 +14,7 @@ async function alertasClima() {
         <p class='severidadealerta' title=''>Severidade:<strong class='strongseveridade'>${alerta.severidade}</strong></p>
         <p class='descriscos'>${alerta.riscos}</p>
         <p class= 'inicio'>Início Do Alerta: ${new Date(alerta.inicio).toLocaleString('pt-BR')}</p>
-        <p class= 'inicio'>Provável Fim Do Alerta: ${new Date(alerta.fim).toLocaleString('pt-BR')}</p>
+        <p class= 'fim'>Provável Fim Do Alerta: ${new Date(alerta.fim).toLocaleString('pt-BR')}</p>
         <h2 class='h2prev' style='display: none';>Prevenções</h2>
         <h3 class='instrucoes'><span class='instrucoestxt'>Orientações</span></h3>
         <div class='prevencoes' style='display: none';>
@@ -58,7 +58,10 @@ async function alertasClima() {
       const severidade = alertaEl.querySelector('.severidadealerta');
       const estadoalerta = alertaEl.querySelector('.estadosalertas');
       const h4 = alertaEl.querySelector('.h4');
-      const btnfixar = alertaEl.querySelector('.fixaralerta')
+      const h4txt = h4.textContent;
+      const severidadestrong = alertaEl.querySelector('.strongseveridade');
+      const severidadestrongtxt = severidadestrong.textContent;
+
 
       // Limpa o ulprev
       ulprev.innerHTML = '';
@@ -176,6 +179,7 @@ async function alertasClima() {
         ulprev.appendChild(li2);
       }
 
+
       if (descriscostxt.includes('plantações') || descriscostxt.includes('geada') || descriscostxt.includes('frio')) {
         const li = document.createElement('li');
         li.innerHTML = '<strong>Em Caso de Frio que Afeta Plantações:</strong> Proteja suas plantações com mantas térmicas ou plásticos agrícolas.';
@@ -190,6 +194,11 @@ async function alertasClima() {
         ulprev.appendChild(li2);
       }
 
+      if (h4.textContent == 'Chuvas Intensas' && severidadestrongtxt == 'Perigo Potencial') {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>Em caso de Chuvas Intensas:</strong> Evite exposição a chuva e fique atento a Alagamentos';
+        ulprev.appendChild(li);
+      }
       const h2prev = alertaEl.querySelector('.h2prev');
       const h3 = alertaEl.querySelector('.instrucoes');
       const h3voltar = alertaEl.querySelector('.instrucoesvoltar');

@@ -209,11 +209,54 @@ async function buscarPrevisao() {
 
     document.getElementById("resultado1").style.display = "none";
 
+    const map = L.map('map').setView([lat, lon], 5); // Brasil
+
+    // Adiciona o mapa base (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+
+    // Camadas climáticas (Weather Maps 1.0)
+    const tempLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6,
+      attribution: '&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>'
+    });
+
+    const windLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
+
+    const cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.5
+  });
+
+      const humidityLayer = L.tileLayer(`https://tile.openweathermap.org/map/humidity_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
+
+    // Adiciona controle para trocar camadas
+    const baseMaps = {
+      "OpenStreetMap": map
+    };
+
+    const overlayMaps = {
+      "Temperatura": tempLayer,
+      "Vento": windLayer,
+      "Nuvens": cloudsLayer,
+      "Humidade": humidityLayer
+    };
+
+    L.control.layers(null, overlayMaps).addTo(map);
+
+    // Ativa uma camada por padrão
+    tempLayer.addTo(map);
+
     const setavento = document.getElementById('setavento');
     const direcaoventoseta = document.querySelector('.direcaovento').textContent;
 
     if (direcaoventoseta.includes('330°')) {
-      
+
     }
 
     // result 2
