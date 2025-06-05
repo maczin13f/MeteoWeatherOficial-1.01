@@ -17,6 +17,7 @@ const condicoesTraduzidasComEmoji = {
   };
   
   let mapa = null;
+  let map2;
   let marcador = null; // marcador global para não duplicar
   
 

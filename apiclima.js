@@ -4,6 +4,10 @@ async function buscarPrevisao() {
   const cidade = document.getElementById("cidade").value.trim();
   const pais = document.getElementById("pais").value;
 
+  if (mapa2.style.display == 'block' || divMapa.style.display == 'block') {
+    mapact.style.display = 'none';
+  }
+
   let localBusca = cidade;
 
   const codigoISO = codigosPais[pais] || "";
@@ -179,10 +183,8 @@ async function buscarPrevisao() {
     const cortempmax = getCorTempMax(tempmax);
     const cortempmin = getCorTempMin(tempmin);
     const direcoesVento = obterDirecaoVento(direcaovento);
-
-    otherinfo.addEventListener('click', function () {
+    mapact.style.display = 'block';
       mostrarMapa(lat, lon, cidadeFormatada);
-    })
 
     document.getElementById("resultado").innerHTML = `
             <p class="cidade"> 🌍 <strong>${cidadeFormatada} ${estado ? ", " + estado : ""} - ${paisNome}</strong></p> 
@@ -209,55 +211,50 @@ async function buscarPrevisao() {
 
     document.getElementById("resultado1").style.display = "none";
 
-    const map = L.map('map').setView([lat, lon], 5); // Brasil
+    // Se já existe um mapa, remova-o antes de criar um novo
+  if (map2) {
+    map2.remove();
+  }
 
-    // Adiciona o mapa base (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+  map2 = L.map('map').setView([lat, lon], 5); // Novo mapa
 
+  // Mapa base
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map2);
 
-    // Camadas climáticas (Weather Maps 1.0)
-    const tempLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-      opacity: 0.6,
-      attribution: '&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>'
-    });
-
-    const windLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-      opacity: 0.6
-    });
-
-    const cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-      opacity: 0.5
+  // Camadas climáticas
+  const tempLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+    opacity: 0.6
   });
 
-      const humidityLayer = L.tileLayer(`https://tile.openweathermap.org/map/humidity_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-      opacity: 0.6
-    });
+  const windLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+    opacity: 0.6
+  });
 
-    // Adiciona controle para trocar camadas
-    const baseMaps = {
-      "OpenStreetMap": map
-    };
+  const cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+    opacity: 0.5
+  });
 
-    const overlayMaps = {
-      "Temperatura": tempLayer,
-      "Vento": windLayer,
-      "Nuvens": cloudsLayer,
-      "Humidade": humidityLayer
-    };
+  const humidityLayer = L.tileLayer(`https://tile.openweathermap.org/map/humidity_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+    opacity: 0.6
+  });
 
-    L.control.layers(null, overlayMaps).addTo(map);
+  // Controle de camadas
+  const overlayMaps = {
+    "Temperatura": tempLayer,
+    "Vento": windLayer,
+    "Nuvens": cloudsLayer,
+    "Humidade": humidityLayer
+  };
 
-    // Ativa uma camada por padrão
-    tempLayer.addTo(map);
+  L.control.layers(null, overlayMaps).addTo(map2);
 
-    const setavento = document.getElementById('setavento');
+  // Camada padrão
+  tempLayer.addTo(map2);
+
+
     const direcaoventoseta = document.querySelector('.direcaovento').textContent;
-
-    if (direcaoventoseta.includes('330°')) {
-
-    }
 
     // result 2
     document.getElementById("resultado2").innerHTML = `

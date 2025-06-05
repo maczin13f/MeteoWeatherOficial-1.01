@@ -162,7 +162,7 @@ h5 {
 }
 
 #hrefalertas {
-    margin-left: 48em;
+    margin-left: 5em;
     font-size: 21px;
     color: white;
     text-shadow: black 1px 1px 1px;
@@ -224,15 +224,25 @@ h5 {
 }
 
 #mapa {
-    margin-top: -35.7em;
+    margin-top: -61.7em;
     height: 33em;
     width: 58em;
     border: 3px solid black;
     border-radius: 30px;
-    left: 0.5em;
+    margin-left: 40em;
     
 }  
 
+#btnmapa {
+display: flex;
+flex-direction: row;
+transform: translateY(-53em);
+gap: 10px;
+margin-left: 53em;
+}
+
+#btnmapa button {
+}
 .card-dias {
     border: solid black;
     border-radius: 30px;

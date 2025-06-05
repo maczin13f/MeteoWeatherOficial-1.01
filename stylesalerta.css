@@ -8,7 +8,6 @@ body {
 #alertasClimaticos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    width: 40em;
     gap: 20px;
 }
 
@@ -20,12 +19,12 @@ li {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 40em;
+    height: auto;
     justify-content: center;
     align-items: center;
     border: solid black 3px;
-    width: 37.7em;
     border-radius: 30px;
+    width: 100%;
 }
 
 #ulprev:focus {

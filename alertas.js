@@ -196,9 +196,219 @@ async function alertasClima() {
 
       if (h4.textContent == 'Chuvas Intensas' && severidadestrongtxt == 'Perigo Potencial') {
         const li = document.createElement('li');
-        li.innerHTML = '<strong>Em caso de Chuvas Intensas:</strong> Evite exposição a chuva e fique atento a Alagamentos';
+        li.innerHTML = '<strong>Em caso de Chuvas Intensas (Perigo Potencial):</strong> Evite exposição a chuva e fique atento aos Alagamentos';
         ulprev.appendChild(li);
       }
+      if (h4.textContent == 'Chuvas Intensas' && severidadestrongtxt == 'Perigo') {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>Em caso de Chuvas Intensas (Perigo):</strong> Evite qualquer deslocamento, caso esteja na rua procure um local seguro e fique atento a Alagamentos';
+        ulprev.appendChild(li);
+      }
+       if (h4.textContent == 'Chuvas Intensas' && severidadestrongtxt == 'Grande Perigo') {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>Em caso de Chuvas Intensas (Grande Perigo):</strong> Não saia de sua Residência, caso esteja na rua procure um local seguro URGENTE, caso esteja em um veículo, procure um local alto e com cobertura';
+        ulprev.appendChild(li);
+      }
+      if (h4.textContent == 'Tempestade' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Tempestade (Perigo Potencial):</strong> Evite atividades ao ar livre, fique atento a quedas de galhos e possíveis descargas elétricas.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Tempestade' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Tempestade (Perigo):</strong> Não permaneça em áreas abertas, evite o uso de aparelhos eletrônicos ligados na tomada e busque abrigo seguro.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Tempestade' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Tempestade (Grande Perigo):</strong> Permaneça em casa, desligue aparelhos eletrônicos, evite contato com água corrente e procure abrigo em local seguro imediatamente.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Geada' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Geada (Perigo Potencial):</strong> Proteja plantas sensíveis e fique atento às condições de cultivo e pastagem.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Geada' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Geada (Perigo):</strong> Redobre a proteção de plantações, proteja animais expostos ao frio e evite exposição prolongada ao ar livre.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Geada' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Geada (Grande Perigo):</strong> Fortes impactos à agricultura. Mantenha pessoas, animais e plantações protegidos. Risco elevado de prejuízos severos.';
+  ulprev.appendChild(li);
+}if (h4.textContent == 'Tempestade de Raios' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Tempestade de Raios (Perigo Potencial):</strong> Evite áreas abertas e uso de objetos metálicos durante a tempestade.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Tempestade de Raios' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Tempestade de Raios (Perigo):</strong> Fique em local fechado e não utilize aparelhos elétricos conectados à tomada.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Tempestade de Raios' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Tempestade de Raios (Grande Perigo):</strong> Proteja-se em local seguro imediatamente e evite contato com redes metálicas ou cabos expostos.';
+  ulprev.appendChild(li);
+}
+
+// Granizo
+if (h4.textContent == 'Granizo' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Granizo (Perigo Potencial):</strong> Proteja veículos e cubra plantas sensíveis.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Granizo' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Granizo (Perigo):</strong> Evite permanecer ao ar livre e procure abrigo seguro.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Granizo' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Granizo (Grande Perigo):</strong> Abrigue-se imediatamente e proteja janelas e vidros expostos.';
+  ulprev.appendChild(li);
+}
+
+// Acumulado de Chuva
+if (h4.textContent == 'Acumulado de Chuva' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Acumulado de Chuva (Perigo Potencial):</strong> Fique atento a locais com drenagem precária e possíveis alagamentos.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Acumulado de Chuva' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Acumulado de Chuva (Perigo):</strong> Evite transitar por ruas alagadas e áreas de risco de deslizamento.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Acumulado de Chuva' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Acumulado de Chuva (Grande Perigo):</strong> Procure abrigo seguro, evite saídas e siga orientações da Defesa Civil.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Frio Intenso' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Frio Intenso (Perigo Potencial):</strong> Use roupas adequadas e evite exposição prolongada ao ar livre.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Frio Intenso' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Frio Intenso (Perigo):</strong> Abrigue-se adequadamente, proteja idosos e crianças e evite ambientes sem aquecimento.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Frio Intenso' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Frio Intenso (Grande Perigo):</strong> Perigo à saúde. Permaneça abrigado e forneça suporte a pessoas em situação de rua.';
+  ulprev.appendChild(li);
+}
+
+// Declínio de Temperatura
+if (h4.textContent == 'Declínio de Temperatura' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Declínio de Temperatura (Perigo Potencial):</strong> Vista-se com roupas quentes e esteja atento a mudanças bruscas no tempo.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Declínio de Temperatura' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Declínio de Temperatura (Perigo):</strong> Proteja-se do frio intenso e evite exposição em horários noturnos.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Declínio de Temperatura' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Declínio de Temperatura (Grande Perigo):</strong> Risco elevado de hipotermia. Busque abrigo aquecido e proteja animais e pessoas vulneráveis.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Vendaval' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Vendaval (Perigo Potencial):</strong> Retire objetos soltos de áreas externas e evite se abrigar debaixo de árvores.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Vendaval' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Vendaval (Perigo):</strong> Fique em local seguro, evite trânsito em áreas arborizadas e mantenha distância de janelas.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Vendaval' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Vendaval (Grande Perigo):</strong> Altíssimo risco de quedas de estruturas. Abrigue-se imediatamente e siga recomendações das autoridades.';
+  ulprev.appendChild(li);
+}
+
+// Ventos Costeiros
+if (h4.textContent == 'Ventos Costeiros' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Ventos Costeiros (Perigo Potencial):</strong> Evite esportes náuticos e embarcações leves.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Ventos Costeiros' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Ventos Costeiros (Perigo):</strong> Suspensão de atividades marítimas. Evite áreas costeiras e siga recomendações da Marinha.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Ventos Costeiros' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Ventos Costeiros (Grande Perigo):</strong> Perigo extremo em áreas costeiras. Interrupção total de atividades marítimas. Evacuação pode ser necessária.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Onda de Calor' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Onda de Calor (Perigo Potencial):</strong> Hidrate-se com frequência e evite atividades físicas em horários quentes.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Onda de Calor' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Onda de Calor (Perigo):</strong> Permaneça em locais frescos e redobre a hidratação, principalmente para crianças e idosos.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Onda de Calor' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Onda de Calor (Grande Perigo):</strong> Risco grave à saúde. Evite exposição solar direta, use roupas leves e aumente a ingestão de líquidos.';
+  ulprev.appendChild(li);
+}
+
+// Baixa Umidade
+if (h4.textContent == 'Baixa Umidade' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Baixa Umidade (Perigo Potencial):</strong> Beba bastante água e umidifique ambientes.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Baixa Umidade' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Baixa Umidade (Perigo):</strong> Evite exercícios ao ar livre e aumente a hidratação. Risco de ressecamento da pele e mucosas.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Baixa Umidade' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Baixa Umidade (Grande Perigo):</strong> Situação crítica. Mantenha-se em ambientes úmidos e evite qualquer exposição ao sol.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Neblina' || h4.textContent == 'Nevoeiro') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Em caso de Neblina/Nevoeiro:</strong> Reduza a velocidade ao dirigir, mantenha faróis baixos acesos e evite ultrapassagens.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Mar Grosso' && severidadestrongtxt == 'Perigo Potencial') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Mar Grosso (Perigo Potencial):</strong> Evite banhos de mar e atividades náuticas leves.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Mar Grosso' && severidadestrongtxt == 'Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Mar Grosso (Perigo):</strong> Risco de afogamentos. Suspensão de embarcações pequenas e pesca artesanal.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Mar Grosso' && severidadestrongtxt == 'Grande Perigo') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Mar Grosso (Grande Perigo):</strong> Perigo extremo no mar. Proibição de navegação e evacuação de áreas de risco podem ser necessárias.';
+  ulprev.appendChild(li);
+}
+if (h4.textContent == 'Risco de Incêndio Florestal') {
+  const li = document.createElement('li');
+  li.innerHTML = '<strong>Risco de Incêndio Florestal:</strong> Não queime lixo, evite fogueiras e denuncie qualquer foco de incêndio.';
+  ulprev.appendChild(li);
+}
+
       const h2prev = alertaEl.querySelector('.h2prev');
       const h3 = alertaEl.querySelector('.instrucoes');
       const h3voltar = alertaEl.querySelector('.instrucoesvoltar');

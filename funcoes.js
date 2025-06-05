@@ -180,6 +180,7 @@ function getCorTempMax(tempmax) {
 function mostrarMapa(lat, lon, cidade) {
   const divMapa = document.getElementById("mapa");
   divMapa.style.display = "block";
+  mapa2.style.display = 'block'
 
   if (mapa) {
     mapa.setView([lat, lon], 10);

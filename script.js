@@ -25,6 +25,8 @@ const resu2 = document.getElementById('resultado2');
 const alertas = document.getElementById('alertasClimaticos');
 const nextdias = document.getElementById('previsaoDias');
 const background = document.getElementById('background');
+    const mapa2 = document.getElementById('map');
+    const mapa2ct = document.querySelector('.map2ct')
 
 otherinfo.addEventListener('click', function(){
     const secaoAlertas = document.getElementById('alertasClimaticos');
@@ -58,6 +60,7 @@ const grafico = document.getElementById('graficoClima');
     nextdias.style.marginLeft = '15em';
     mapact.style.display = 'none';
     divMapa.style.display = 'none';
+    mapa2.style.display = 'none';
     otherinfo.textContent = 'Mais Informações';
      hrefAlertas.style.display = 'block';
      secaoAlertas.style.display = 'none';
@@ -228,3 +231,17 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+function mapaL() {
+  if (mapa2.style.display == 'block') {
+    mapa2.style.display = 'none';
+    divMapa.style.display = 'block';
+  }
+}
+
+function mapaT() {
+  if (divMapa.style.display == 'block') {
+   divMapa.style.display = 'none';
+    mapa2.style.display = 'block';
+    mapa2.style.marginTop = '-61.7em';
+  }
+}
