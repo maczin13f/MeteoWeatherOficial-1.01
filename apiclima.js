@@ -189,7 +189,7 @@ async function buscarPrevisao() {
     document.getElementById("resultado").innerHTML = `
             <p class="cidade"> 🌍 <strong>${cidadeFormatada} ${estado ? ", " + estado : ""} - ${paisNome}</strong></p> 
             <p class="temperatura" style="color: ${corTemperatura};"> 🌡️ <strong>${Math.round(temperatura)}°C</strong></p>
-            <p class="sensacao">Sensação Térmica De: <span style="color: ${corTemperatura};">${Math.round(sensacao)}°C</span></p>
+            <p class="sensacao">Sensação Térmica: <span style="color: ${corTemperatura};">${Math.round(sensacao)}°C</span></p>
             <p class="ar">💨 Qualidade do Ar: <strong><span style="color: ${qualidadeAr.cor};">${qualidadeAr.descricao}</span></strong></p>
             <p class="minima">Min: <span style="color: ${cortempmin};">${Math.round(tempmin)}°C</span></p>
             <p class="maxima">Max: <span style="color: ${cortempmax};">${Math.round(tempmax)}°C</span></p>
@@ -468,6 +468,8 @@ async function buscarPrevisao() {
   } catch (error) {
     console.error("Erro ao buscar previsão:", error);
   }
+  
+  fechar.style.display = 'block';
   try {
     const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
     const data = await response.json();
@@ -504,9 +506,9 @@ async function buscarPrevisao() {
         `;
 
       alertasContainer.innerHTML = alertasHtml;
-      alertasContainer.style.display = "none";
-      hrefAlertas.style.display = 'block';
-      fechar.style.display = 'block'
+      alertasContainer.style.display = "block";
+      mapact.style.display = 'block';
+      fechar.style.transform = 'translateY(-47.5em)'
 
       const tituloalerta = document.querySelector('.alerta-inmet #severidadealerta')
       const h4 = document.getElementById('h4')
@@ -523,8 +525,6 @@ async function buscarPrevisao() {
       }
     } else {
       alertasContainer.style.display = 'none';
-      hrefAlertas.style.display = 'none';
-      hrefAlertas.style.textShadow = 'white 1px 1px 1px';
     }
 
   } catch (err) {

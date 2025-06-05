@@ -34,7 +34,6 @@ const hrefAlertas = document.getElementById('hrefalertas');
 const grafico = document.getElementById('graficoClima');
 
     if (resu.style.display === '') {
-        fechar.style.transform = 'translateY(-39.4em)';
     background.style.display = 'none';
     resu.style.display = 'none';
     resu3.style.display = 'none';
@@ -82,8 +81,7 @@ const hrefAlertas = document.getElementById('hrefalertas');
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
     otherinfo.style.display = 'none';
-    botoespreview.style.display = 'block';
-    paisinput.style.transform = 'translateY(-8.8em)';  
+    botoespreview.style.display = 'block';  
     fechar.style.display = 'none';
     carregarBuscas();
     containerbuscas.style.display = 'block';
@@ -242,6 +240,6 @@ function mapaT() {
   if (divMapa.style.display == 'block') {
    divMapa.style.display = 'none';
     mapa2.style.display = 'block';
-    mapa2.style.marginTop = '-61.7em';
+    mapa2.style.marginTop = '-61em';
   }
 }

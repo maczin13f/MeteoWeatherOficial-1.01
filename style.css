@@ -31,22 +31,21 @@ span#titulosite {
 #alertasClimaticos {
     cursor: pointer;
   position: relative;
-  left: 31.6em;
-  width: 25em;
-  bottom: 51em;
+  margin-left: 31.6em;
+  width: auto;
+  transform: translateY(-38em);
   background: white;
-  border-radius: 10em;
+  border-radius: 30px;
   height: 20em;
   border: solid black;
   padding: 0.5em;
 }
 
 #alertaativotxt {
-    position: relative;
-    font-size: 30px;
+    font-size: 25px;
     text-shadow: black 2px 2px 2px;
-    right: 0.5em;
-    bottom: 0.2em;
+    margin-left: 1em;
+    transform: translateY(0.2em);
     animation: aumentaLetra 1.9s infinite;
 }
 
@@ -75,7 +74,7 @@ span#titulosite {
 }
 
 #otherinfo {
-    transform: translateY(-3.7em);
+    transform: translateY(-3.5em);
     margin-left: 32%;
     height: 1.7em;
     font-size: 20px;
@@ -172,8 +171,8 @@ h5 {
     background: transparent;
     border: solid black 3px;
     background-size: cover;
-    height: 3em;
-    width: 5em;
+    height: 4em;
+    width: 6em;
     cursor: pointer;
 }
 
@@ -199,7 +198,7 @@ h5 {
 
 
 #fechar {
-    transform: translateY(-34.6em);
+  transform: translateY(-33.9em);
     margin-left: 82%;
     border: solid red 3px;
     border-radius: 30px;
@@ -224,7 +223,7 @@ h5 {
 }
 
 #mapa {
-    margin-top: -61.7em;
+    margin-top: -61em;
     height: 33em;
     width: 58em;
     border: 3px solid black;
@@ -236,12 +235,22 @@ h5 {
 #btnmapa {
 display: flex;
 flex-direction: row;
-transform: translateY(-53em);
-gap: 10px;
-margin-left: 53em;
+margin-top: -5em;
+width: 58.4%;
+margin-left: 34.7em;
+height: 2.5em;
+gap: 15px;
+
 }
 
 #btnmapa button {
+    border: solid black;
+    border-radius: 10px;
+    width: 25em;
+    height: 2.3em;
+    transform: translateX(0.1em);
+    margin-top: -21.8em;
+    font-weight: bold;
 }
 .card-dias {
     border: solid black;
@@ -266,12 +275,14 @@ margin-left: 53em;
     align-items: center;
     text-align: center;
 }
+
 #listapais {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-left: 11em;
 }
+
 #pais {
     width: 60px;
     border: solid black 2px;

@@ -9,7 +9,7 @@
     width: 100%;
     border-radius: 30px;
     margin-top: -8em;
-    height: 30em;
+    height: 32.5em;
 }
 
 #resultado {
@@ -44,19 +44,17 @@
 }
 
 .temperatura {
-    position: relative;
-    font-size: 48px;
-    left: 2.5em;
+    font-size: 50px;
+    margin-left: 1em;
     text-shadow: black 1px 2px 1px;
-    bottom: 0.5em;
+    transform: translateY(-0.7em);
 }
 
 .sensacao {
-    position: relative;
     display: grid;
     text-align: center;
-    right: 4.7em;
-    bottom: 2em;
+    margin-left: 6em;
+   transform: translateY(-7em);
     font-size: 20px;
 }
 
@@ -66,20 +64,18 @@
 }
 
 .ar {
-    position: relative;
     display: grid;
     text-align: center;
-    right: 4.7em;
-    bottom: 2em;
+    margin-left: 6em;
+    transform: translateY(-6em);
     font-size: 20px;
 }
 
 .minima,
 .maxima {
-    position: relative;
-    left: 10em;
+    margin-left: 5.1em;
     width: 30%;
-    top: -14em;
+    transform: translateY(-10.3em);
     font-size: 20px;
 }
 
@@ -112,13 +108,17 @@
     margin-left: 40em;
 }
 
+#mapaContainer {
+    margin-top: 1.6em;
+    margin-left: 3em;
+}
 
 #resultado3 {
     font-size: 16px;
     display: flex;
     gap: 10px;
     margin-left: 56em;
-    transform: translateY(-35.8em);
+    transform: translateY(-38em);
     color: white;
     text-shadow: black 1px 1px 1px;
 }
