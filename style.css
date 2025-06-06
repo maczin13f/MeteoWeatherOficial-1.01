@@ -31,14 +31,13 @@ span#titulosite {
 #alertasClimaticos {
     cursor: pointer;
   position: relative;
-  margin-left: 31.6em;
-  width: auto;
-  transform: translateY(-38em);
+  margin-left: 2em;
+  width: 33em;
+  transform: translateY(-35.5em);
   background: white;
-  border-radius: 30px;
-  height: 20em;
+  border-radius: 900px;
+  height: 17em;
   border: solid black;
-  padding: 0.5em;
 }
 
 #alertaativotxt {
@@ -198,7 +197,7 @@ h5 {
 
 
 #fechar {
-  transform: translateY(-33.9em);
+  transform: translateY(-34.5em);
     margin-left: 82%;
     border: solid red 3px;
     border-radius: 30px;

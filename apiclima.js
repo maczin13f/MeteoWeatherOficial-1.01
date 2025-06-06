@@ -498,8 +498,6 @@ async function buscarPrevisao() {
       const alertasHtml = `
           <div class="alerta-inmet">
             <h4 id='h4'> ${alerta.descricao}</h4>
-            <p id='estadosalertas'>Estados: ${alerta.estados}</p>
-            <p id='locais'> Local: ${(inputValue).toUpperCase()}</p>
             <p id='severidadealerta'><strong>Severidade:</strong> ${alerta.severidade}</p>
             ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
           </div>
@@ -508,7 +506,7 @@ async function buscarPrevisao() {
       alertasContainer.innerHTML = alertasHtml;
       alertasContainer.style.display = "block";
       mapact.style.display = 'block';
-      fechar.style.transform = 'translateY(-47.5em)'
+      fechar.style.transform = 'translateY(-45.5em)'
 
       const tituloalerta = document.querySelector('.alerta-inmet #severidadealerta')
       const h4 = document.getElementById('h4')
