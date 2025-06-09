@@ -30,46 +30,19 @@ span#titulosite {
 
 #alertasClimaticos {
     cursor: pointer;
-  position: relative;
-  margin-left: 2em;
-  width: 33em;
-  transform: translateY(-35.5em);
-  background: white;
+  width: 43%;
   border-radius: 900px;
+  margin-top: -35em;
   height: 17em;
-  border: solid black;
-}
-
-#alertaativotxt {
-    font-size: 25px;
-    text-shadow: black 2px 2px 2px;
-    margin-left: 1em;
-    transform: translateY(0.2em);
-    animation: aumentaLetra 1.9s infinite;
-}
-
-@keyframes aumentaLetra {
-    0% {
-        font-size: 30px;
-    }
-    50% {
-        font-size: 33px;
-    }
-    100% {
-        font-size: 30px;
-    }
-}
-
-#alertaativotxt:hover {
-    animation-play-state: paused;
 }
 
 .alerta-inmet {
     text-align: center;
-    position: relative;
-    left: 2.5em;
     line-height: 1em;
-    top: -1em;
+    font-size: 16px;
+    margin: auto;
+    color: white;
+    text-shadow: black 1px 1px 1px;
 }
 
 #otherinfo {
@@ -104,14 +77,6 @@ span#titulosite {
     top: 3em;
     width: 50%;
     font-size: 25px;
-}
-
-#fotododia {
-    display: none;
-    border: solid black;
-    border-radius: 30px;
-    height: 430px;
-    top: 2em;
 }
 
 #previsaoDias1 .dias,
@@ -159,45 +124,7 @@ h5 {
     padding: 5px;
 }
 
-#hrefalertas {
-    margin-left: 5em;
-    font-size: 21px;
-    color: white;
-    text-shadow: black 1px 1px 1px;
-    animation: ajustarSize 2s infinite ease-in-out;
-    border-radius: 30px;
-    transform: translateY(-9em);
-    background: transparent;
-    border: solid black 3px;
-    background-size: cover;
-    height: 4em;
-    width: 6em;
-    cursor: pointer;
-}
-
-
-@keyframes ajustarSize {
-    0% {
-        display: none;
-    }
-    50% {
-        background: url(imagens/alertaimg.png);
-        background-size: cover;
-        background-color: white;
-        border: solid white 3px;
-    }
-    100% {
-    }
-    
-  }
-
-#hrefalertas:hover {
-   animation-play-state: paused;
-}
-
-
 #fechar {
-  transform: translateY(-34.5em);
     margin-left: 82%;
     border: solid red 3px;
     border-radius: 30px;
@@ -220,16 +147,6 @@ h5 {
     font-weight: bold;
     font-size: 17px;
 }
-
-#mapa {
-    margin-top: -61em;
-    height: 33em;
-    width: 58em;
-    border: 3px solid black;
-    border-radius: 30px;
-    margin-left: 40em;
-    
-}  
 
 #btnmapa {
 display: flex;

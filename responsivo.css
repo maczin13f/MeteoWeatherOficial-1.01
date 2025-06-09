@@ -1,2 +1,39 @@
+.leaflet-touch .leaflet-control-layers-toggle {
+    width: 44px;
+    height: 44px;
+}
+.leaflet-retina .leaflet-control-layers-toggle {
+    background-image: url(imagens/layercol.png);
+    background-size: 40px 40px;
+}
+.leaflet-container a {
+    color: black;
+}
 
+.leaflet-control-layers label {
+    display: block;
+    font-size: 13px;
+    font-size: 1.08333em;
+    color: black;
+}
+
+label{
+    cursor: pointer;
+}
+.leaflet-popup-pane, .leaflet-control {
+    cursor: auto;
+}
+.leaflet-control {
+    position: relative;
+    z-index: 800;
+    pointer-events: visiblePainted;
+    pointer-events: auto;
+}
+
+.leaflet-control-layers-selector {
+    margin-top: 2px;
+    position: relative;
+    top: 1px;
+    font-weight: bold;
+}
 

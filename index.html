@@ -300,18 +300,21 @@
 <div id="mapaContainer" style="display: none;">
    <div id="btnmapa">
    <button onclick="mapaL()">Localização</button>
-   <button onclick="mapaT()">Camadas</button>
+   <button onclick="mapaT()" id="btnmapat">Camadas</button>
    </div>
    <div id="mapa" style="display: none;"></div>
    <div id="map" style="display: none;"></div>
 </div>
 
-   <div id="graficoClima" style="width:70%; height:300px;"></div>
+   <div id="graficoClima" style="display: none;"></div>
 
 
    <div id="alertasClimaticos" style="display: none;"></div>
 
    <button id="fechar" onclick="fecharBuscas()" style="display: none;">Fechar</button>
+
+   <div id="estacoes" style="display: none;"></div>
+   <div id="faseLua" style="display: none;"></div>
 
    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
    <script src="apiclima.js"></script>

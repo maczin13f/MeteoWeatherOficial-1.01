@@ -30,40 +30,30 @@ const background = document.getElementById('background');
 
 otherinfo.addEventListener('click', function(){
     const secaoAlertas = document.getElementById('alertasClimaticos');
-const hrefAlertas = document.getElementById('hrefalertas');
 const grafico = document.getElementById('graficoClima');
+const resuLua = document.getElementById('faseLua');
+const resuEstacoes = document.getElementById('estacoes');
 
     if (resu.style.display === '') {
     background.style.display = 'none';
     resu.style.display = 'none';
-    resu3.style.display = 'none';
-    resu1.style.display = 'block';
-    resu2.style.display = 'block';
+    resu3.style.display = '';
+    resu1.style.display = '';
+    resu2.style.display = '';
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
-    mapact.style.display = 'block';
+    mapact.style.display = 'none';
     document.querySelector('#previsaoDias h5').style.marginLeft = '-6.5em';
     otherinfo.textContent = 'Voltar';
-    hrefAlertas.style.display = 'none';
     secaoAlertas.style.display = 'none';
-    grafico.style.display = 'block'
+    grafico.style.display = ''
+    resu3.style.transform = 'translateY(-53.8em)';
+    fechar.style.transform = 'translateY(-17.1em)';
+    resuLua.style.display = '';
+    resuEstacoes.style.display = '';
     }
     else if (resu.style.display === 'none') {
-        background.style.display = 'block';
-        resu.style.display = 'block';
-    resu3.style.display = 'block';
-    resu1.style.display = 'none';
-    resu2.style.display = 'none';
-    alertas.style.display = 'block';
-    nextdias.style.display = 'block';
-    nextdias.style.marginLeft = '15em';
-    mapact.style.display = 'none';
-    divMapa.style.display = 'none';
-    mapa2.style.display = 'none';
-    otherinfo.textContent = 'Mais Informações';
-     hrefAlertas.style.display = 'block';
-     secaoAlertas.style.display = 'none';
-     grafico.style.display = 'none'
+      grafico.style.display = 'none'
     } 
 })
 
@@ -71,7 +61,6 @@ const botoespreview = document.getElementById('botoespreview');
 
 function fecharBuscas() {
     const secaoAlertas = document.getElementById('alertasClimaticos');
-const hrefAlertas = document.getElementById('hrefalertas');
     background.style.display = 'none'
     resu.style.display = 'none';
     resu1.style.display = 'none';
@@ -85,7 +74,6 @@ const hrefAlertas = document.getElementById('hrefalertas');
     fechar.style.display = 'none';
     carregarBuscas();
     containerbuscas.style.display = 'block';
-    hrefAlertas.style.display = 'none';
     secaoAlertas.style.display = 'none';
 }
 
@@ -164,18 +152,58 @@ verpreview5.addEventListener('click', function(){
     }
 })
 
-function obterEstacao(data = new Date()) {
-  const mes = data.getMonth() + 1;
+function obterEstacao(data = new Date(), lat = 0) {
+  const mes = data.getMonth();
   const dia = data.getDate();
+  let estacao = "";
 
-  if ((mes === 12 && dia >= 21) || mes === 1 || mes === 2 || (mes === 3 && dia < 20)) {
-    return "Verão";
-  } else if ((mes === 3 && dia >= 20) || mes === 4 || mes === 5 || (mes === 6 && dia < 21)) {
-    return "Outono";
-  } else if ((mes === 6 && dia >= 21) || mes === 7 || mes === 8 || (mes === 9 && dia < 23)) {
-    return "Inverno";
+  if (lat >= 0) {
+    // Hemisfério Norte
+    if ((mes === 2 && dia >= 20) || mes === 3 || mes === 4 || (mes === 5 && dia < 21)) {
+      estacao = "Primavera";
+    } else if ((mes === 5 && dia >= 21) || mes === 6 || mes === 7 || (mes === 8 && dia < 23)) {
+      estacao = "Verão";
+    } else if ((mes === 8 && dia >= 23) || mes === 9 || mes === 10 || (mes === 11 && dia < 21)) {
+      estacao = "Outono";
+    } else {
+      estacao = "Inverno";
+    }
   } else {
-    return "Primavera";
+    // Hemisfério Sul
+    if ((mes === 8 && dia >= 23) || mes === 9 || mes === 10 || (mes === 11 && dia < 21)) {
+      estacao = "Primavera";
+    } else if ((mes === 11 && dia >= 21) || mes === 0 || mes === 1 || (mes === 2 && dia < 20)) {
+      estacao = "Verão";
+    } else if ((mes === 2 && dia >= 20) || mes === 3 || mes === 4 || (mes === 5 && dia < 21)) {
+      estacao = "Outono";
+    } else {
+      estacao = "Inverno";
+    }
+  }
+
+  return estacao;
+}
+
+const fasesLuaPT = {
+  "New Moon": "Lua Nova",
+  "Waxing Crescent": "Crescente",
+  "First Quarter": "Quarto Crescente",
+  "Waxing Gibbous": "Gibosa Crescente",
+  "Full Moon": "Lua Cheia",
+  "Waning Gibbous": "Gibosa Minguante",
+  "Last Quarter": "Quarto Minguante",
+  "Waning Crescent": "Minguante"
+};
+
+function obterImgEstacao(estacao) {
+  if (estacao === 'Outono') {
+    return 'imagens/outono.png'
+  }
+}
+
+function obterImgLua(faseI) {
+  if (faseI == 'Waxing Gibbous') {
+     return 'imagens/crescenteg.png'
   }
 }
 
@@ -230,16 +258,40 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function mapaL() {
-  if (mapa2.style.display == 'block') {
+  if (mapa2.style.display == '') {
     mapa2.style.display = 'none';
-    divMapa.style.display = 'block';
+    divMapa.style.display = '';
   }
 }
 
 function mapaT() {
-  if (divMapa.style.display == 'block') {
+  if (divMapa.style.display == '') {
    divMapa.style.display = 'none';
-    mapa2.style.display = 'block';
-    mapa2.style.marginTop = '-61em';
+    mapa2.style.display = '';
   }
 }
+
+const btnmapat = document.getElementById('btnmapat');
+
+btnmapat.addEventListener('click', function(){
+  mapa2.style.marginTop = '-61em';
+})
+
+function corSeveridade(severidade) {
+ if (severidade == 'Perigo Potencial') {
+        return 'yellow';
+      } else if ( severidade == 'Perigo') {
+        return 'orange';
+      } else if (severidade == 'Grande Perigo') {
+        return 'red';
+      }
+    }
+
+    function periodoDiurno(time) {
+      if (time >= '00:00') {
+        return 'Dia';
+      }
+      else {
+        return 'Noite'
+      }
+    }

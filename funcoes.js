@@ -179,8 +179,8 @@ function getCorTempMax(tempmax) {
 
 function mostrarMapa(lat, lon, cidade) {
   const divMapa = document.getElementById("mapa");
-  divMapa.style.display = "block";
-  mapa2.style.display = 'block'
+  divMapa.style.display = "";
+  mapa2.style.display = ''
 
   if (mapa) {
     mapa.setView([lat, lon], 10);
@@ -321,19 +321,5 @@ function normalizarTexto(texto) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
-
-const secaoAlertas = document.getElementById('alertasClimaticos');
-const hrefAlertas = document.getElementById('hrefalertas');
-
-hrefAlertas.addEventListener("click", () => {
-  hrefAlertas.style.display = 'none';
-  secaoAlertas.style.display = 'block';
- 
-});
-
-secaoAlertas.addEventListener("click", () => {
-  secaoAlertas.style.display = 'none';
-  hrefAlertas.style.display = 'block';
-});
 
 

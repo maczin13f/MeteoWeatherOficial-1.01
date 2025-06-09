@@ -1,12 +1,15 @@
 const API_KEY = "9fd2e6d05708adae2650cf7871a24abc";
 
 async function buscarPrevisao() {
+  const alertasContainer = document.getElementById("alertasClimaticos");
+
   const cidade = document.getElementById("cidade").value.trim();
   const pais = document.getElementById("pais").value;
 
-  if (mapa2.style.display == 'block' || divMapa.style.display == 'block') {
-    mapact.style.display = 'none';
-  }
+  alertasContainer.style.display = 'none';
+
+  fechar.style.display = 'none';
+
 
   let localBusca = cidade;
 
@@ -183,7 +186,7 @@ async function buscarPrevisao() {
     const cortempmax = getCorTempMax(tempmax);
     const cortempmin = getCorTempMin(tempmin);
     const direcoesVento = obterDirecaoVento(direcaovento);
-    mapact.style.display = 'block';
+    mapact.style.display = '';
       mostrarMapa(lat, lon, cidadeFormatada);
 
     document.getElementById("resultado").innerHTML = `
@@ -199,12 +202,10 @@ async function buscarPrevisao() {
 
     // result 1
     document.getElementById("resultado1").innerHTML = `
+                <p class="lat">📍 Latitude: ${lat}</p> 
                 <p class="lon">📍 Longitude: ${lon}</p> 
                 <p class="velovento">💨 Velocidade Vento: ${velocidadeKmh} Km/h</p> 
-                <p class="nascersol">Nascer Do sol: ${sunriseTime}</p>
-                <p class="lat">📍 Latitude: ${lat}</p> 
                 <p class="direcaovento">Direção Vento: ${direcaovento}°<strong id='setavento'> - ${direcoesVento}</strong></p> 
-                <p class="pordosol">Por Do sol: ${sunsetTime}</p>
                 <p class="pressao">Pressão Atmosférica: ${pressao} hPa</p>
                 <p class="humidade">Humidade: ${humidade}%</p>
         `;
@@ -217,6 +218,8 @@ async function buscarPrevisao() {
   }
 
   map2 = L.map('map').setView([lat, lon], 5); // Novo mapa
+
+  mapa2.style.marginTop = '-33.5em';
 
   // Mapa base
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -253,6 +256,38 @@ async function buscarPrevisao() {
   // Camada padrão
   tempLayer.addTo(map2);
 
+      const apiKey = "1aedeb4499f74007a9920729250904"; // Coloque sua chave WeatherAPI aqui
+
+      const hoje1 = new Date().toISOString().slice(0, 10); // formato YYYY-MM-DD
+      const url = `https://api.weatherapi.com/v1/astronomy.json?key=${apiKey}&q=${lat},${lon}&dt=${hoje1}`
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.error) {
+          document.getElementById("faseLua").innerText = "Erro: " + data.error.message;
+          return;
+        }
+
+        const faseI = data.astronomy.astro.moon_phase;
+        const iluminacao = data.astronomy.astro.moon_illumination;
+        const imgLuaV = obterImgLua(faseI);
+        const periododia = periodoDiurno(time);
+
+        // Tradução da fase da lua
+        const fasePT = fasesLuaPT[faseI] || faseI;
+
+        document.getElementById("faseLua").innerHTML = `
+          <p> ${fasePT} (${iluminacao}% iluminada)</p>
+          <p class='periodo'>${periododia}</p>
+          <img src="${imgLuaV}">
+            `
+          
+      } catch (e) {
+        document.getElementById("faseLua").innerText = "Não foi possível carregar os dados.";
+        console.error(e);
+      }
 
     const direcaoventoseta = document.querySelector('.direcaovento').textContent;
 
@@ -266,6 +301,17 @@ async function buscarPrevisao() {
         `;
 
     document.getElementById("resultado2").style.display = "none";
+
+    const estacao = obterEstacao(new Date(), lat); // ✅
+    const obterImgE = obterImgEstacao(estacao);
+    
+document.getElementById('estacoes').innerHTML = `
+<p id='estacaoano'>${estacao}</p>
+<img src='${obterImgE}'>
+ <p class="nascersol">Nascer Do sol: ${sunriseTime}</p>
+<p class="pordosol">Por Do sol: ${sunsetTime}</p>
+`
+    document.getElementById('estacaoano').textContent = estacao;
 
     // result 3
     document.getElementById("resultado3").innerHTML = `
@@ -305,11 +351,6 @@ async function buscarPrevisao() {
       background.style.backgroundPosition = 'left 8%';
       resu.style.color = 'white';
       resu.style.textShadow = 'black 2px 3px 1px'
-      resu1.style.background = 'url(imagens/thunderstorm.jpg)';
-      resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 38%';
-      resu1.style.color = 'white';
-      resu1.style.textShadow = 'black 2px 3px 1px'
       resu2.style.background = 'url(imagens/thunderstorm.jpg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -335,11 +376,6 @@ async function buscarPrevisao() {
       background.style.backgroundPosition = 'left 8%';
       resu.style.color = 'white';
       resu.style.textShadow = 'black 2px 3px 1px';
-      resu1.style.background = 'url(imagens/nevoa.jpg)';
-      resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 38%';
-      resu1.style.color = 'white';
-      resu1.style.textShadow = 'black 2px 3px 1px'
       resu2.style.background = 'url(imagens/nevoa.jpg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -361,9 +397,6 @@ async function buscarPrevisao() {
       background.style.background = 'url(imagens/areia.jpeg)';
       background.style.backgroundSize = "cover";
       background.style.backgroundPosition = 'center 25%';
-      resu1.style.background = 'url(imagens/areia.jpeg)';
-      resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 38%';
       resu2.style.background = 'url(imagens/areia.jpeg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -385,11 +418,6 @@ async function buscarPrevisao() {
       background.style.backgroundPosition = 'left 8%';
       resu.style.color = 'white';
       resu.style.textShadow = 'black 2px 3px 1px';
-      resu1.style.background = 'url(imagens/tornado.jpg)';
-      resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 38%';
-      resu1.style.color = 'white';
-      resu1.style.textShadow = 'black 2px 3px 1px'
       resu2.style.background = 'url(imagens/tornado.jpg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -413,11 +441,6 @@ async function buscarPrevisao() {
       background.style.backgroundPosition = 'left 8%';
       resu.style.color = 'white';
       resu.style.textShadow = 'blue 2px 1px 1px'
-      resu1.style.background = 'url(imagens/neve.jpg)';
-      resu1.style.backgroundSize = 'cover';
-      resu1.style.backgroundPosition = 'center 38%';
-      resu1.style.color = 'white';
-      resu1.style.textShadow = 'blue 2px 3px 1px'
       resu2.style.background = 'url(imagens/neve.jpg)';
       resu2.style.backgroundSize = 'cover';
       resu2.style.backgroundPosition = 'center';
@@ -469,7 +492,8 @@ async function buscarPrevisao() {
     console.error("Erro ao buscar previsão:", error);
   }
   
-  fechar.style.display = 'block';
+  fechar.style.display = '';
+  fechar.style.transform = 'translateY(-34.5em)';
   try {
     const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
     const data = await response.json();
@@ -482,8 +506,7 @@ async function buscarPrevisao() {
       normalizarTexto(alerta.municipios || "").includes(cidadeNormalizada)
     );
 
-    const hrefAlertas = document.getElementById('hrefalertas');
-    const alertasContainer = document.getElementById("alertasClimaticos");
+
 
     // Encontra o alerta mais severo possível com base nas regras
     const grandePerigo = alertasFiltrados.find(a => a.severidade === "Grande Perigo");
@@ -491,38 +514,26 @@ async function buscarPrevisao() {
     const perigoPotencial = alertasFiltrados.find(a => a.severidade === "Perigo Potencial");
 
     const alertaMaisRelevante = grandePerigo || perigo || perigoPotencial;
-    const inputValue = document.getElementById('cidade').value;
-
     if (alertaMaisRelevante) {
       const alerta = alertaMaisRelevante;
+       const corSev = corSeveridade(alerta.severidade);
+
       const alertasHtml = `
           <div class="alerta-inmet">
             <h4 id='h4'> ${alerta.descricao}</h4>
-            <p id='severidadealerta'><strong>Severidade:</strong> ${alerta.severidade}</p>
-            ${alerta.riscos?.length ? `<p><strong>Riscos:</strong> ${alerta.riscos.join(" ")}</p>` : ""}
-          </div>
+            <p id='severidadealerta' style='color: ${corSev};'>${alerta.severidade}</p>
+            <p id='riscos'>${alerta.riscos}</p>
+            </div>
         `;
 
       alertasContainer.innerHTML = alertasHtml;
-      alertasContainer.style.display = "block";
-      mapact.style.display = 'block';
-      fechar.style.transform = 'translateY(-45.5em)'
+      alertasContainer.style.display = "";
+      mapact.style.display = '';
+        fechar.style.transform = 'translateY(-23.05em)';
 
-      const tituloalerta = document.querySelector('.alerta-inmet #severidadealerta')
-      const h4 = document.getElementById('h4')
-
-      if (tituloalerta && tituloalerta.textContent.includes('Grande Perigo')) {
-        h4.style.color = 'orangered';
-        hrefAlertas.style.background = 'orangered';
-      } else if (tituloalerta && tituloalerta.textContent.includes('Perigo Potencial')) {
-        h4.style.color = 'yellow';
-        hrefAlertas.style.background = 'yellow';
-      } else if (tituloalerta && tituloalerta.textContent.includes('Perigo')) {
-        h4.style.color = 'orange';
-        hrefAlertas.style.background = 'orange';
-      }
     } else {
       alertasContainer.style.display = 'none';
+        fechar.style.transform = 'translateY(-34.5em)';
     }
 
   } catch (err) {
