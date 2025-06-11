@@ -33,6 +33,8 @@ otherinfo.addEventListener('click', function(){
 const grafico = document.getElementById('graficoClima');
 const resuLua = document.getElementById('faseLua');
 const resuEstacoes = document.getElementById('estacoes');
+const noalert = document.getElementById('noalert');
+
 
     if (resu.style.display === '') {
     background.style.display = 'none';
@@ -43,6 +45,7 @@ const resuEstacoes = document.getElementById('estacoes');
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
     mapact.style.display = 'none';
+    noalert.style.display = 'none'
     document.querySelector('#previsaoDias h5').style.marginLeft = '-6.5em';
     otherinfo.textContent = 'Voltar';
     secaoAlertas.style.display = 'none';
@@ -51,6 +54,7 @@ const resuEstacoes = document.getElementById('estacoes');
     fechar.style.transform = 'translateY(-17.1em)';
     resuLua.style.display = '';
     resuEstacoes.style.display = '';
+    
     }
     else if (resu.style.display === 'none') {
       grafico.style.display = 'none'
@@ -65,7 +69,6 @@ function fecharBuscas() {
     resu.style.display = 'none';
     resu1.style.display = 'none';
     resu2.style.display = 'none';
-    resu3.style.display = 'none';
     divMapa.style.display = 'none';
     alertas.style.display = 'none';
     nextdias.style.display = 'none';
@@ -203,8 +206,29 @@ function obterImgEstacao(estacao) {
 
 function obterImgLua(faseI) {
   if (faseI == 'Waxing Gibbous') {
-     return 'imagens/crescenteg.png'
+     return 'imagens/gibosac.png'
   }
+  else if (faseI == 'New Moon') {
+    return 'imagens/nova.png'
+ }
+ else if (faseI == 'Waxing Crescent') {
+  return 'imagens/crescente.png'
+}
+else if (faseI == 'First Quarter') {
+  return 'imagens/quartoc.png'
+}
+else if (faseI == 'Full Moon') {
+  return 'imagens/cheia.png'
+}
+else if (faseI == 'Waning Gibbous') {
+  return 'imagens/gibosam.png'
+}
+else if (faseI == 'Last Quarter') {
+  return 'imagens/4minguante.png'
+}
+else if (faseI == 'Waning Crescent') {
+  return 'imagens/minguante.png'
+}
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -287,11 +311,16 @@ function corSeveridade(severidade) {
       }
     }
 
-    function periodoDiurno(time) {
-      if (time >= '00:00') {
-        return 'Dia';
-      }
-      else {
-        return 'Noite'
-      }
+    const dataHoras = new Date();
+      const hora0a23 = dataHoras.getHours(); //
+      console.log(hora0a23);
+
+      function periodoDiurno() {
+        if (hora0a23 >= 1 && hora0a23 <= 11) {
+            return 'Manhã';
+        } else if (hora0a23 >= 12 && hora0a23 <= 19) {
+            return 'Tarde';
+        } else {
+            return 'Noite';
+        }
     }

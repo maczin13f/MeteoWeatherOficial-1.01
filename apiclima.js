@@ -1,6 +1,19 @@
 const API_KEY = "9fd2e6d05708adae2650cf7871a24abc";
 
 async function buscarPrevisao() {
+
+  const body2 = document.querySelector('.body2');
+  const carregando = document.querySelector('.carregando');
+  const otherinfo = document.getElementById('otherinfo');
+  const containerbuscas = document.querySelector('.containerbuscas');
+
+  botoespreview.style.display = 'none'
+  containerbuscas.style.display = 'none';
+  body2.style.visibility = 'hidden';
+  carregando.style.display = '';
+  otherinfo.style.display = 'none';
+  paisinput.style.visibility = 'hidden';
+
   const alertasContainer = document.getElementById("alertasClimaticos");
 
   const cidade = document.getElementById("cidade").value.trim();
@@ -187,7 +200,7 @@ async function buscarPrevisao() {
     const cortempmin = getCorTempMin(tempmin);
     const direcoesVento = obterDirecaoVento(direcaovento);
     mapact.style.display = '';
-      mostrarMapa(lat, lon, cidadeFormatada);
+    mostrarMapa(lat, lon, cidadeFormatada);
 
     document.getElementById("resultado").innerHTML = `
             <p class="cidade"> 🌍 <strong>${cidadeFormatada} ${estado ? ", " + estado : ""} - ${paisNome}</strong></p> 
@@ -213,86 +226,103 @@ async function buscarPrevisao() {
     document.getElementById("resultado1").style.display = "none";
 
     // Se já existe um mapa, remova-o antes de criar um novo
-  if (map2) {
-    map2.remove();
-  }
+    if (map2) {
+      map2.remove();
+    }
 
-  map2 = L.map('map').setView([lat, lon], 5); // Novo mapa
+    map2 = L.map('map').setView([lat, lon], 8); // Novo mapa
 
-  mapa2.style.marginTop = '-33.5em';
+    mapa2.style.marginTop = '-33.5em';
 
-  // Mapa base
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map2);
+    // Mapa base
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map2);
 
-  // Camadas climáticas
-  const tempLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-    opacity: 0.6
-  });
+    // Camadas climáticas
+    const tempLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
 
-  const windLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-    opacity: 0.6
-  });
+    const windLayer = L.tileLayer(`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
 
-  const cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-    opacity: 0.5
-  });
+    const cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.5
+    });
 
-  const humidityLayer = L.tileLayer(`https://tile.openweathermap.org/map/humidity_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
-    opacity: 0.6
-  });
+    const PrecipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
 
-  // Controle de camadas
-  const overlayMaps = {
-    "Temperatura": tempLayer,
-    "Vento": windLayer,
-    "Nuvens": cloudsLayer,
-    "Humidade": humidityLayer
-  };
+    const RainLayer = L.tileLayer(`https://tile.openweathermap.org/map/rain_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
 
-  L.control.layers(null, overlayMaps).addTo(map2);
+    const SnowLayer = L.tileLayer(`https://tile.openweathermap.org/map/snow_new/{z}/{x}/{y}.png?appid=${API_KEY}`, {
+      opacity: 0.6
+    });
 
-  // Camada padrão
-  tempLayer.addTo(map2);
+    // Controle de camadas
+    const overlayMaps = {
+      "Temperatura": tempLayer,
+      "Vento": windLayer,
+      "Nuvens": cloudsLayer,
+      "Precipitação": PrecipitationLayer,
+      "Intensidade Chuva": RainLayer,
+      "Neve": SnowLayer
+    };
 
-      const apiKey = "1aedeb4499f74007a9920729250904"; // Coloque sua chave WeatherAPI aqui
+    L.control.layers(null, overlayMaps).addTo(map2);
 
-      const hoje1 = new Date().toISOString().slice(0, 10); // formato YYYY-MM-DD
-      const url = `https://api.weatherapi.com/v1/astronomy.json?key=${apiKey}&q=${lat},${lon}&dt=${hoje1}`
+    const apiKey = "1aedeb4499f74007a9920729250904"; // Coloque sua chave WeatherAPI aqui
 
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
+    const hoje1 = new Date().toISOString().slice(0, 10); // formato YYYY-MM-DD
+    const url = `https://api.weatherapi.com/v1/astronomy.json?key=${apiKey}&q=${lat},${lon}&dt=${hoje1}`
 
-        if (data.error) {
-          document.getElementById("faseLua").innerText = "Erro: " + data.error.message;
-          return;
-        }
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-        const faseI = data.astronomy.astro.moon_phase;
-        const iluminacao = data.astronomy.astro.moon_illumination;
-        const imgLuaV = obterImgLua(faseI);
-        const periododia = periodoDiurno(time);
-
-        // Tradução da fase da lua
-        const fasePT = fasesLuaPT[faseI] || faseI;
-
-        document.getElementById("faseLua").innerHTML = `
-          <p> ${fasePT} (${iluminacao}% iluminada)</p>
-          <p class='periodo'>${periododia}</p>
-          <img src="${imgLuaV}">
-            `
-          
-      } catch (e) {
-        document.getElementById("faseLua").innerText = "Não foi possível carregar os dados.";
-        console.error(e);
+      if (data.error) {
+        document.getElementById("faseLua").innerText = "Erro: " + data.error.message;
+        return;
       }
 
-    const direcaoventoseta = document.querySelector('.direcaovento').textContent;
 
-    // result 2
-    document.getElementById("resultado2").innerHTML = `
+      const faseI = data.astronomy.astro.moon_phase;
+      const iluminacao = data.astronomy.astro.moon_illumination;
+      const nascerlua = data.astronomy.astro.moonrise;
+      const pordalua = data.astronomy.astro.moonset;
+
+      function parseTime12h(time12h) {
+        const [time, modifier] = time12h.split(' '); // ex: ["06:04", "PM"]
+        let [hours, minutes] = time.split(':').map(Number);
+
+        if (modifier === 'PM' && hours !== 12) hours += 12;
+        if (modifier === 'AM' && hours === 12) hours = 0;
+
+        const date = new Date();
+        date.setHours(hours, minutes, 0, 0);
+        return date;
+      }
+
+      const nascerluaDate = parseTime12h(nascerlua);
+      const porDaLuaDate = parseTime12h(pordalua)
+      const nascerLuaFormatada = nascerluaDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+      const porDaLuaFormatada = porDaLuaDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+      const imgLuaV = obterImgLua(faseI);
+      const periododia = periodoDiurno(hora0a23);
+
+      // Tradução da fase da lua
+      const fasePT = fasesLuaPT[faseI] || faseI;
+
+      const direcaoventoseta = document.querySelector('.direcaovento').textContent;
+
+      // result 2
+      document.getElementById("resultado2").innerHTML = `
          <p class="cidade"> 🌍 <strong>${cidadeFormatada} ${estado ? ", " + estado : ""} - ${paisNome}</strong></p> 
             <p class="condicaotemp"> ${condicaoTraduzidaComEmoji}</p>
             <p class="descricao">Tempo: ${descricao1}</p>
@@ -300,18 +330,34 @@ async function buscarPrevisao() {
             <p class="visib"> Visibilidade: ${visibilidadeKm} Km</p>
         `;
 
-    document.getElementById("resultado2").style.display = "none";
+      document.getElementById("resultado2").style.display = "none";
 
-    const estacao = obterEstacao(new Date(), lat); // ✅
-    const obterImgE = obterImgEstacao(estacao);
-    
-document.getElementById('estacoes').innerHTML = `
-<p id='estacaoano'>${estacao}</p>
-<img src='${obterImgE}'>
+      const estacao = obterEstacao(new Date(), lat); // ✅
+      const obterImgE = obterImgEstacao(estacao);
+
+      document.getElementById('estacoes').innerHTML = `
+<div class='solinfo'>
  <p class="nascersol">Nascer Do sol: ${sunriseTime}</p>
 <p class="pordosol">Por Do sol: ${sunsetTime}</p>
+<p id='estacaoano'>${estacao}</p>
+<img src='${obterImgE}'>
+</div>
+<div class='periododiv'>
+<p class='periodo'>Período: <strong>${periododia}</strong></p>
+</div>
+<div class='luainfo'>
+ <p class='nascerlua'>Nascer Da Lua: ${nascerLuaFormatada}</p>
+          <p class='pordalua'>Por Da Aula: ${porDaLuaFormatada}</p>
+          <p class='fase'> ${fasePT}</p>
+          <img src="${imgLuaV}">
+          <p class='iluminacao'>(${iluminacao}% iluminada)</p>
+          </div>
 `
-    document.getElementById('estacaoano').textContent = estacao;
+      document.getElementById('estacaoano').textContent = estacao;
+    } catch (e) {
+      document.getElementById("faseLua").innerText = "Não foi possível carregar os dados.";
+      console.error(e);
+    }
 
     // result 3
     document.getElementById("resultado3").innerHTML = `
@@ -322,7 +368,9 @@ document.getElementById('estacoes').innerHTML = `
     horasDinamica();
     setInterval(horasDinamica, 1000);
 
-    document.getElementById('otherinfo').style.display = 'block';
+    const botaomaisinfo = document.getElementById('otherinfo');
+
+    botaomaisinfo.textContent = 'Carregando...';
 
     const containerbuscas = document.querySelector('.containerbuscas');
 
@@ -491,7 +539,7 @@ document.getElementById('estacoes').innerHTML = `
   } catch (error) {
     console.error("Erro ao buscar previsão:", error);
   }
-  
+
   fechar.style.display = '';
   fechar.style.transform = 'translateY(-34.5em)';
   try {
@@ -516,7 +564,7 @@ document.getElementById('estacoes').innerHTML = `
     const alertaMaisRelevante = grandePerigo || perigo || perigoPotencial;
     if (alertaMaisRelevante) {
       const alerta = alertaMaisRelevante;
-       const corSev = corSeveridade(alerta.severidade);
+      const corSev = corSeveridade(alerta.severidade);
 
       const alertasHtml = `
           <div class="alerta-inmet">
@@ -529,14 +577,24 @@ document.getElementById('estacoes').innerHTML = `
       alertasContainer.innerHTML = alertasHtml;
       alertasContainer.style.display = "";
       mapact.style.display = '';
-        fechar.style.transform = 'translateY(-23.05em)';
+      fechar.style.transform = 'translateY(-23.05em)';
 
     } else {
-      alertasContainer.style.display = 'none';
-        fechar.style.transform = 'translateY(-34.5em)';
+      document.getElementById('noalert').style.display = ''
+      fechar.style.transform = 'translateY(-38.7em)';
     }
+
+    document.getElementById('otherinfo').disabled = false;
+    document.getElementById('otherinfo').textContent = 'Mais Informações';
 
   } catch (err) {
     console.error("Erro ao buscar ou processar alertas do INMET (JSON):", err);
   }
+
+  carregando.style.display = 'none';
+  body2.style.visibility = '';
+  otherinfo.style.display = '';
+  paisinput.style.visibility = ''
+
+  document.getElementById('otherinfo').style.display = ''
 }

@@ -87,3 +87,62 @@ strong {
     display: flex;
     flex-direction: column;
 }
+
+.titulos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    position: relative;
+    text-align: center;
+    border: solid black 3px;
+    height: 80px;
+    top: 10px;
+    border-radius: 30px;
+    width: 100%;
+}
+
+#titulo {
+   font-size: 40px;
+}
+
+.titulo2 {
+    position: relative;
+    text-align: center;
+    font-size: 20px;
+    background: white;
+    border: solid black 2px;
+    border-radius: 30px;
+    padding: 3px;
+    width: 15%;
+    margin-top: -1.5em;
+}
+
+#alinhar {
+    display: flex;
+    justify-content: center;
+}
+
+.alertasfiltro {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    justify-content: center;
+    padding: 15px;
+    width: 50%;
+    border: solid black 3px;
+    border-radius: 30px;
+    margin-bottom: 1em;
+}
+
+.alertasfiltro input {
+    transform: scale(2);
+    accent-color: blue;
+}
+
+.estadosalertas {
+    text-align: center;
+}

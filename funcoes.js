@@ -322,4 +322,6 @@ function normalizarTexto(texto) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
-
+const nascerEPorLua = {
+  'PM': 'Tarde'
+}

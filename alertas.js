@@ -1,39 +1,34 @@
-async function alertasClima() {
-  const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
-  const data = await response.json();
-  console.log("🔍 Dados recebidos do INMET:", data);
-
+async function alertasClima(alertas) {
   const alertasContainer = document.getElementById("alertasClimaticos");
-  const alertas = [...data.futuro];
+  alertasContainer.innerHTML = '';
 
   if (alertas.length) {
     const alertasHtml = alertas.map(alerta => `
       <div class="alerta-inmet">
         <h4 class='h4'>${alerta.descricao}</h4>
-        <p class='estadosalertas' style='display: block';>Estados: ${alerta.estados}</p>
-        <p class='severidadealerta' title=''>Severidade:<strong class='strongseveridade'>${alerta.severidade}</strong></p>
+        <p class='estadosalertas'>Estados: ${alerta.estados}</p>
+        <p class='severidadealerta' title=''>Severidade: <strong class='strongseveridade'>${alerta.severidade}</strong></p>
         <p class='descriscos'>${alerta.riscos}</p>
-        <p class= 'inicio'>Início Do Alerta: ${new Date(alerta.inicio).toLocaleString('pt-BR')}</p>
-        <p class= 'fim'>Provável Fim Do Alerta: ${new Date(alerta.fim).toLocaleString('pt-BR')}</p>
-        <h2 class='h2prev' style='display: none';>Prevenções</h2>
+        <p class='inicio'>Início: ${new Date(alerta.inicio).toLocaleString('pt-BR')}</p>
+        <p class='fim'>Fim: ${new Date(alerta.fim).toLocaleString('pt-BR')}</p>
+        <h2 class='h2prev' style='display: none;'>Prevenções</h2>
         <h3 class='instrucoes'><span class='instrucoestxt'>Orientações</span></h3>
-        <div class='prevencoes' style='display: none';>
-        <ul id='ulprev' style='display: none';>
-        </ul>
-        <h3 class='instrucoesvoltar' style= 'display: none'><span class='instrucoestxt'>Voltar</span></h3>
+        <div class='prevencoes' style='display: none;'>
+          <ul id='ulprev' style='display: none;'></ul>
+          <h3 class='instrucoesvoltar' style='display: none;'><span class='instrucoestxt'>Voltar</span></h3>
         </div>
       </div>
     `).join("");
 
     alertasContainer.innerHTML = alertasHtml;
-    alertasContainer.style.display = "";
+    console.log(alertas)
+    alertasContainer.style.display = '';
 
-    // Ajustar cor de cada alerta individualmente
+    // Ajustar cores e títulos de severidade
     document.querySelectorAll('.alerta-inmet').forEach(alertaEl => {
       const tituloalerta = alertaEl.querySelector('.severidadealerta');
       const severidade = alertaEl.querySelector('.strongseveridade');
       const titleseveridade = alertaEl.querySelector('.severidadealerta');
-
 
       if (tituloalerta && tituloalerta.textContent.includes('Grande Perigo')) {
         severidade.style.color = 'red';
@@ -43,31 +38,29 @@ async function alertasClima() {
         titleseveridade.setAttribute('title', 'Perigo Potencial : Alerta de baixo risco para a população');
       } else if (tituloalerta && tituloalerta.textContent.includes('Perigo')) {
         severidade.style.color = 'orange';
-        titleseveridade.setAttribute('title', 'Perigo : Alerta de risco Médio para a população e Evite deslocamentos Desnecessarios');
+        titleseveridade.setAttribute('title', 'Perigo : Alerta de risco Médio para a população e Evite deslocamentos desnecessários');
       }
     });
 
+    // Cria instruções de prevenção
     document.querySelectorAll('.alerta-inmet').forEach(alertaEl => {
       const descriscos = alertaEl.querySelector('.descriscos');
       const ulprev = alertaEl.querySelector('#ulprev');
-
-
-      // Pega o texto do <p class='descriscos'>
-      const descriscostxt = descriscos.textContent;
       const prevencoescaixa = alertaEl.querySelector('.prevencoes');
       const severidade = alertaEl.querySelector('.severidadealerta');
       const estadoalerta = alertaEl.querySelector('.estadosalertas');
       const h4 = alertaEl.querySelector('.h4');
-      const h4txt = h4.textContent;
       const severidadestrong = alertaEl.querySelector('.strongseveridade');
+      const h2prev = alertaEl.querySelector('.h2prev');
+      const h3 = alertaEl.querySelector('.instrucoes');
+      const h3voltar = alertaEl.querySelector('.instrucoesvoltar');
       const severidadestrongtxt = severidadestrong.textContent;
+      const descriscostxt = descriscos.textContent;
+      const ulPrevLi = alertaEl.querySelector('#ulprev li')
 
-
-      // Limpa o ulprev
       ulprev.innerHTML = '';
 
-      // 2️⃣ Verifica as palavras e cria <li> se necessário
-      if (descriscostxt.includes('alagamentos')) {
+  if (descriscostxt.includes('alagamentos')) {
         const li = document.createElement('li');
         li.innerHTML = '<strong>Em Caso de Alagamentos:</strong> Evite contato com águas de alagamentos.';
         ulprev.appendChild(li);
@@ -409,12 +402,8 @@ if (h4.textContent == 'Risco de Incêndio Florestal') {
   ulprev.appendChild(li);
 }
 
-      const h2prev = alertaEl.querySelector('.h2prev');
-      const h3 = alertaEl.querySelector('.instrucoes');
-      const h3voltar = alertaEl.querySelector('.instrucoesvoltar');
-
-      h3.addEventListener('click', function () {
-        if (estadoalerta.style.display === 'block') {
+      h3.addEventListener('click', () => {
+        if (estadoalerta.style.display !== 'none') {
           h4.style.display = 'none';
           estadoalerta.style.display = 'none';
           severidade.style.display = 'none';
@@ -424,11 +413,11 @@ if (h4.textContent == 'Risco de Incêndio Florestal') {
           prevencoescaixa.style.display = 'block';
           ulprev.style.display = 'block';
           h3voltar.style.display = 'block';
-          ulprev.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          };
-        
-        h3voltar.addEventListener('click', function() {
-          if (estadoalerta.style.display === 'none') {
+          h2prev.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+      h3voltar.addEventListener('click', () => {
+        if (estadoalerta.style.display === 'none') {
           h4.style.display = 'block';
           estadoalerta.style.display = 'block';
           severidade.style.display = 'block';
@@ -438,16 +427,31 @@ if (h4.textContent == 'Risco de Incêndio Florestal') {
           prevencoescaixa.style.display = 'none';
           ulprev.style.display = 'none';
           h3voltar.style.display = 'none';
-        };
-      })
-})
-  })
-  }}
-window.onload = alertasClima;
+        }
+      });
+    });
+  }
+}
 
+window.onload = async () => {
+  const response = await fetch('https://updatetempweather.onrender.com/inmet-alertas');
+  const data = await response.json();
 
+  const hoje = document.getElementById('hoje');
+  const futuro = document.getElementById('futuro');
+  const todos = document.getElementById('todos');
 
+  // Mostrar todos inicialmente
+  alertasClima([...data.hoje]);
+  hoje.checked = true;
 
-
-
-
+  hoje.addEventListener('change', () => {
+    alertasClima(data.hoje);
+  });
+  futuro.addEventListener('change', () => {
+    alertasClima(data.futuro);
+  });
+  todos.addEventListener('change', () => {
+    alertasClima([...data.hoje, ...data.futuro]);
+  });
+};

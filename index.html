@@ -19,7 +19,7 @@
 
       <button id="botaobuscar" onclick="buscarPrevisao()">🔎</button>
 
-      <button id="otherinfo" style="display: none;">Mais Informações</button>
+      <button disabled id="otherinfo" style="display: none;">Mais Informações</button>
    </div>
 
    <div id="listapais">
@@ -289,6 +289,7 @@
   <div id="buscas">
   </div>
   </div>
+  <div class="body2">
    <div id="background">
       <div id="resultado"></div>
    </div>
@@ -310,11 +311,20 @@
 
 
    <div id="alertasClimaticos" style="display: none;"></div>
+    <h2 id='noalert' style='display: none;'>Sem Alertas Ativos No Momento
+      <p><a href="alertas.html">Veja Mais Informações</a></p>
+    </h2>
 
    <button id="fechar" onclick="fecharBuscas()" style="display: none;">Fechar</button>
 
    <div id="estacoes" style="display: none;"></div>
    <div id="faseLua" style="display: none;"></div>
+   </div>
+
+   <div class="carregando" style="display: none;">
+   <p class="loading">Obtendo Dados...</p>
+   <img src="imagens/gifload.gif" id="gifload" width="45px">
+   </div>
 
    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
    <script src="apiclima.js"></script>
